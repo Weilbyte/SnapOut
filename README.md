@@ -39,6 +39,6 @@ Thanks to T4NDY (Russian Translation) and Thek (Portuguese Translation)!
 (Pssh, Im actively looking for translators!)
 
 # Reupload
-I lost my previous GitHub account so I reupload the repo (old repo is https://github.com/DustyTB/SnapOut)
+I lost my previous GitHub account so I reuploaded the repo (old repo is https://github.com/DustyTB/SnapOut)
 
 
