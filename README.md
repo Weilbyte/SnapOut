@@ -1,5 +1,4 @@
 # SnapOut - Calm down your pawns
-
 [Steam Workshop Page](http://steamcommunity.com/sharedfiles/filedetails/?id=1319782555)
 
 # About the mod
@@ -30,17 +29,16 @@ Should play nice with ongoing games and mods that add mental breaks (i.e. Psycho
 ## ![](https://i.imgur.com/cWOL2ZS.png)
 
 Upon calming violent prisoners, they might be stuck in a sad wandering state. You could let them be or just beat them to a pulp.
-
-Open an issue if you happen to stumble over any. Or, if you feel generous, you can fix the issue yourself and contribute with a pull request.
+Open an issue if you happen to stumble over any. 
 
 ## ![](https://i.imgur.com/3iqmPq0.png)
 
-Very huge thanks to Mehni, fyarn, XeoNovaDan, the kind people of the Rimworld Discord (*Shh, join, theres this cool shotty dude!*)
+Very huge thanks to Mehni, fyarn, XeoNovaDan, the kind people of the Rimworld Discord (shh, join, theres this cool shotty dude!) and BaRKy!
 
-Thanks to BaRKy for reviewing the mod.
+Thanks to T4NDY (Russian Translation) and Thek (Portuguese Translation)!
+(Pssh, Im actively looking for translators!)
 
-# Rate the mod
-
-If you liked the mod, Id appreciate it a lot if you rated it on Steam (and perhaps favorite it if you REALLY like it!)
+# Reupload
+I lost my previous GitHub account so I reupload the repo (old repo is https://github.com/DustyTB/SnapOut)
 
 
