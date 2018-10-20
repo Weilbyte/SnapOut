@@ -35,7 +35,7 @@ Open an issue if you happen to stumble over any.
 
 Very huge thanks to Mehni, fyarn, XeoNovaDan, the kind people of the Rimworld Discord (shh, join, theres this cool shotty dude!) and BaRKy!
 
-Thanks to T4NDY (Russian Translation) and Thek (Portuguese Translation)!
+Thanks to Rook (German Translation), T4NDY (Russian Translation) and Thek (Portuguese Translation)!
 (Pssh, Im actively looking for translators!)
 
 # Reupload
