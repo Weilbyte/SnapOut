@@ -7,9 +7,6 @@ namespace SnapOut
 {
     class JobDriver_SnappingOut : JobDriver
     {
-
-
-        //Toil Reservations
         #region toilreservations
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
@@ -17,8 +14,6 @@ namespace SnapOut
         }
         #endregion
 
-
-        //Toil stuffs
         #region toilstuffs
         protected override IEnumerable<Toil> MakeNewToils()
         {
@@ -54,7 +49,5 @@ namespace SnapOut
             yield return snappingout;            
         }
         #endregion
-
-
     }
 }

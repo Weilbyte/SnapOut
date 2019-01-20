@@ -6,7 +6,6 @@ namespace SnapOut
 {
     class SOSettings : ModSettings
     {
-        //Vars
         #region vars
         public bool SOmessagesEnabled = true;
         public bool SOAggroCalmEnabled = false;
@@ -44,7 +43,6 @@ namespace SnapOut
 
     class SOMod : Mod
     {
-        //SOSettings
         #region SOsettings
         public static SOSettings settings;
 
@@ -56,7 +54,6 @@ namespace SnapOut
         public override string SettingsCategory() => "SettingsCategoryLabel".Translate();
         #endregion
 
-        //Main window thing
         public override void DoSettingsWindowContents(Rect inRect)
         {
             Listing_Standard listing_Standard = new Listing_Standard();

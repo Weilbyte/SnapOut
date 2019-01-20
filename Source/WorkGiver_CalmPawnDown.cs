@@ -7,8 +7,6 @@ namespace SnapOut
 {
     class WorkGiver_CalmPawnDown : WorkGiver_Warden_Chat
     {
-
-        //ShouldSkip Thingy
         #region shouldskip
         public override bool ShouldSkip(Pawn pawn, bool forced = false)
         {
@@ -16,8 +14,6 @@ namespace SnapOut
         }
         #endregion
 
-
-        //Main thing
         #region jobonthing
         public override Job JobOnThing(Pawn pawn, Thing thang, bool forced = true)
         {

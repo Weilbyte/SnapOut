@@ -10,7 +10,6 @@ namespace SnapOut
 {
     class SnapUtils
     {
-        //In an attempt to de-clutterify and remove excess lines
         private static readonly string FCalm = "FailCalm".Translate();
         private static readonly string SCalm = "SuccessCalm".Translate();
         private static readonly string AFCalm = "AggroFailCalm".Translate();
