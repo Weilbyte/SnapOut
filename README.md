@@ -38,7 +38,5 @@ Very huge thanks to Mehni, fyarn, XeoNovaDan, the kind people of the Rimworld Di
 Thanks to Rook (German Translation), T4NDY (Russian Translation) and Thek (Portuguese Translation)!
 (Pssh, Im actively looking for translators!)
 
-# Reupload
-I lost my previous GitHub account so I reuploaded the repo (old repo is https://github.com/DustyTB/SnapOut)
 
 
