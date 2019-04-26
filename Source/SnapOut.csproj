@@ -55,7 +55,9 @@
     <None Include="..\Patches\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JobDriver_ActuallyRecover.cs" />
+    <Compile Include="JobDriver_ActuallyRecover.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="SnapDefOf.cs" />
     <Compile Include="SnapUtils.cs" />
     <Compile Include="JobDriver_GoToSafety.cs" />

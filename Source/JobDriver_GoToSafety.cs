@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
-using UnityEngine;
-using Verse;
-using Verse.AI;
-
-namespace SnapOut
+﻿namespace SnapOut
 {
-    class JobDriver_GoToSafety : JobDriver
+    using System.Collections.Generic;
+    using RimWorld; 
+    using Verse;
+    using Verse.AI;
+
+    /// <summary>
+    /// Job driver. Makes the pawn go their bedroom for safety.
+    /// </summary>
+    public class JobDriver_GoToSafety : JobDriver
     {
-        #region toilreservations
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return true;
         }
-        #endregion
 
-        #region toilstuffs
         protected override IEnumerable<Toil> MakeNewToils()
         {
             Pawn tpawn = this.pawn;
@@ -30,8 +26,6 @@ namespace SnapOut
             Toil relax = Toils_General.Wait(wticks);
             relax.socialMode = RandomSocialMode.Off;
             yield return relax;
-     
         }
-        #endregion
     }
 }

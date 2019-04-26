@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
-using RimWorld;
-using Verse.AI;
-using Verse;
-
-namespace SnapOut
+﻿namespace SnapOut
 {
-    class JobDriver_SnappingOut : JobDriver
+    using System.Collections.Generic;
+    using RimWorld;
+    using Verse;
+    using Verse.AI;
+
+    /// <summary>
+    /// Job driver. Makes the pawn go to their bed (if not present, a random spot nearby) where they are given a job that snaps them out.
+    /// </summary>
+    public class JobDriver_SnappingOut : JobDriver
     {
-        #region toilreservations
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return true;
         }
-        #endregion
 
-        #region toilstuffs
         protected override IEnumerable<Toil> MakeNewToils()
         {
             Pawn rpawn = this.pawn;
@@ -28,6 +28,7 @@ namespace SnapOut
                     IntVec3 c = RCellFinder.RandomWanderDestFor(rpawn, rpawn.Position, 0.3f, null, Danger.None); 
                     yield return Toils_Goto.GotoCell(c, PathEndMode.OnCell);
                 }
+
                 yield return Toils_Goto.GotoCell(ownedbed.Position, PathEndMode.OnCell);
             }
             else
@@ -35,6 +36,7 @@ namespace SnapOut
                 IntVec3 c = RCellFinder.RandomWanderDestFor(rpawn, rpawn.Position, 2f, null, Danger.None);
                 yield return Toils_Goto.GotoCell(c, PathEndMode.OnCell);
             }
+
             Toil waitonspot = Toils_General.Wait(500);
 
             waitonspot.socialMode = RandomSocialMode.Off;
@@ -48,6 +50,5 @@ namespace SnapOut
             snappingout.socialMode = RandomSocialMode.Off;
             yield return snappingout;            
         }
-        #endregion
     }
 }

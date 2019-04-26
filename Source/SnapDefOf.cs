@@ -1,13 +1,8 @@
-﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Verse;
-
-
-namespace SnapOut
+﻿namespace SnapOut
 {
+    using RimWorld;
+    using Verse;
+
     public static class SnapDefOf
     {
         public static JobDef CalmDownJob = DefDatabase<JobDef>.GetNamed("SnapOut_CalmDownJob"); 

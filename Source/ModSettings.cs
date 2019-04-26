@@ -1,12 +1,11 @@
-﻿using Verse;
-using UnityEngine;
-using SettingsHelper;
-
-namespace SnapOut
+﻿namespace SnapOut
 {
-    class SOSettings : ModSettings
+    using SettingsHelper;
+    using UnityEngine;
+    using Verse;
+
+    public class SOSettings : ModSettings
     {
-        #region vars
         public bool SOmessagesEnabled = true;
         public bool SOAggroCalmEnabled = false;
         public bool SOOpnOnly = false;
@@ -38,64 +37,66 @@ namespace SnapOut
             Scribe_Values.Look<int>(ref this.SOCalmDuration, "SOCalmDuration", 1250);
             Scribe_Values.Look<int>(ref this.SOCooldown, "SOCoolDown", 15000);
         }
-        #endregion
     }
 
-    class SOMod : Mod
+    public class SOMod : Mod
     {
         #region SOsettings
-        public static SOSettings settings;
+
+        public static SOSettings Settings;
 
         public SOMod(ModContentPack content) : base(content)
         {
-            settings = GetSettings<SOSettings>();
+            Settings = GetSettings<SOSettings>();
         }
-   
+
         public override string SettingsCategory() => "SettingsCategoryLabel".Translate();
-        #endregion
+
+        #endregion SOsettings
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.Begin(inRect);
-            listing_Standard.AddLabeledCheckbox("MessagesEnabledLabel".Translate() +" ", ref settings.SOmessagesEnabled);
-            listing_Standard.AddLabeledCheckbox("AggroCalmEnabledLabel".Translate() + " ", ref settings.SOAggroCalmEnabled);
-            listing_Standard.AddLabeledCheckbox("OpinionOnlyEnabledLabel".Translate() + " ", ref settings.SOOpnOnly);
-            listing_Standard.AddLabeledCheckbox("NonFactionEnabledLabel".Translate() + " ", ref settings.SONonFaction);
-            listing_Standard.AddLabeledCheckbox("TraderCalmEnabledLabel".Translate() + " ", ref settings.SOTraderCalm);
-            listing_Standard.AddLabeledCheckbox("AdvancedMenu".Translate() + "  ", ref settings.SOAdvanced);
-            if (SOMod.settings.SOAdvanced)
+            listing_Standard.AddLabeledCheckbox("MessagesEnabledLabel".Translate() + " ", ref Settings.SOmessagesEnabled);
+            listing_Standard.AddLabeledCheckbox("AggroCalmEnabledLabel".Translate() + " ", ref Settings.SOAggroCalmEnabled);
+            listing_Standard.AddLabeledCheckbox("OpinionOnlyEnabledLabel".Translate() + " ", ref Settings.SOOpnOnly);
+            listing_Standard.AddLabeledCheckbox("NonFactionEnabledLabel".Translate() + " ", ref Settings.SONonFaction);
+            listing_Standard.AddLabeledCheckbox("TraderCalmEnabledLabel".Translate() + " ", ref Settings.SOTraderCalm);
+            listing_Standard.AddLabeledCheckbox("AdvancedMenu".Translate() + "  ", ref Settings.SOAdvanced);
+            if (SOMod.Settings.SOAdvanced)
             {
                 listing_Standard.AddLabelLine("Formula = diplomacy skill * social multiplier + opinion * opinion multiplier");
-                if (SOMod.settings.SOOpnOnly)
+                if (SOMod.Settings.SOOpnOnly)
                 {
-                    listing_Standard.AddLabeledNumericalTextField("OOMultLabel".Translate().Translate(), ref settings.SOOOpnWeight, (float)0.5, 0, 1);
+                    listing_Standard.AddLabeledNumericalTextField("OOMultLabel".Translate().Translate(), ref Settings.SOOOpnWeight, (float)0.5, 0, 1);
                 }
                 else
                 {
-                    listing_Standard.AddLabeledNumericalTextField("SMultLabel".Translate(), ref settings.SODipWeight, (float)0.5, 0, 1);
-                    listing_Standard.AddLabeledNumericalTextField("OMultLabel".Translate(), ref settings.SOOpnWeight, (float)0.5, 0, 1);
+                    listing_Standard.AddLabeledNumericalTextField("SMultLabel".Translate(), ref Settings.SODipWeight, (float)0.5, 0, 1);
+                    listing_Standard.AddLabeledNumericalTextField("OMultLabel".Translate(), ref Settings.SOOpnWeight, (float)0.5, 0, 1);
                 }
-                listing_Standard.AddLabeledNumericalTextField("StunWeight".Translate(), ref settings.SOStunWeight, (float)0.5, 0, 1);
 
-                listing_Standard.AddLabeledNumericalTextField("CalmDuration".Translate(), ref SOMod.settings.SOCalmDuration);
-                listing_Standard.AddLabeledNumericalTextField("Cooldown".Translate(), ref SOMod.settings.SOCooldown);
-                listing_Standard.AddLabeledCheckbox("DebugChanceSetting".Translate() + " ", ref settings.SODebug);
+                listing_Standard.AddLabeledNumericalTextField("StunWeight".Translate(), ref Settings.SOStunWeight, (float)0.5, 0, 1);
+
+                listing_Standard.AddLabeledNumericalTextField("CalmDuration".Translate(), ref SOMod.Settings.SOCalmDuration);
+                listing_Standard.AddLabeledNumericalTextField("Cooldown".Translate(), ref SOMod.Settings.SOCooldown);
+                listing_Standard.AddLabeledCheckbox("DebugChanceSetting".Translate() + " ", ref Settings.SODebug);
                 if (listing_Standard.ButtonText("Default"))
                 {
                     SnapUtils.DebugLog("Reset advanced settings to defaults");
-                    SOMod.settings.SODipWeight = 0.2f;
-                    SOMod.settings.SOOpnWeight = 0.0014f;
-                    SOMod.settings.SOOOpnWeight = 0.006f;
-                    SOMod.settings.SOStunWeight = 0.55f;
-                    SOMod.settings.SOCalmDuration = 1250;
-                    SOMod.settings.SODebug = false;
-                    SOMod.settings.SOCooldown = 15000;
+                    SOMod.Settings.SODipWeight = 0.2f;
+                    SOMod.Settings.SOOpnWeight = 0.0014f;
+                    SOMod.Settings.SOOOpnWeight = 0.006f;
+                    SOMod.Settings.SOStunWeight = 0.55f;
+                    SOMod.Settings.SOCalmDuration = 1250;
+                    SOMod.Settings.SODebug = false;
+                    SOMod.Settings.SOCooldown = 15000;
                 }
             }
-            listing_Standard.End();
-            settings.Write();
-        }
 
+            listing_Standard.End();
+            Settings.Write();
+        }
     }
 }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Verse;
-using Verse.AI;
-
-namespace SnapOut
+﻿namespace SnapOut
 {
-    class JobDriver_ActuallyRecover : JobDriver
+    using System.Collections.Generic;
+    using Verse;
+    using Verse.AI;
+
+    /// <summary>
+    /// Job driver. Calls RecoverFromState on the pawn - recovering it from its mental breakdown.
+    /// </summary>
+    public class JobDriver_ActuallyRecover : JobDriver
     {
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
@@ -20,6 +20,5 @@ namespace SnapOut
             yield return Toils_General.Wait(1);
             rpawn.MentalState.RecoverFromState();
         }
-
     }
 }

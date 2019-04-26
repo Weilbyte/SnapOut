@@ -1,20 +1,34 @@
-﻿using RimWorld;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using Verse;
-
-namespace SnapOut
+﻿namespace SnapOut
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using RimWorld;
+    using UnityEngine;
+    using Verse;
+
     internal class SnapUtils
     {
-        private static List<string> incompatDef = new List<string>(new string[] { "RunWild", "PanicFlee", "HuntingTrip", "SocialFighting" }); //Def names of incompatible mental states
+        private static List<string> incompatDef = new List<string>(new string[] { "RunWild", "PanicFlee", "HuntingTrip", "SocialFighting" }); // Def names of incompatible mental states
+
+        /// <summary>
+        /// Gets a random calming message from the translation files. Picks random message with ID between 1-21.
+        /// </summary>
+        public static string GetCalmingMessage
+        {
+            get
+            {
+                int rand = UnityEngine.Random.Range(1, 21);
+                string cmrand = "CM" + rand;
+                DebugLog("Picked " + cmrand + " as a calming message");
+                return cmrand.Translate();
+            }
+        }
 
         /// <summary>
         /// Checks to see if target pawn meets mod conditions to be calmed
         /// </summary>
         /// <param name="subjectee">Target pawn</param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public static bool CanDo(Pawn subjectee)
         {
             if (subjectee == null)
@@ -25,12 +39,23 @@ namespace SnapOut
             bool prisonerDo, traderDo, stateTypeDo, awakeDo;
             prisonerDo = traderDo = stateTypeDo = awakeDo = false;
 
-            //Awake check
-            if (RestUtility.Awake(subjectee)) { awakeDo = true; }
+            // Awake check
+            if (RestUtility.Awake(subjectee))
+            {
+                awakeDo = true;
+            }
 
-            //Aggro check
-            if (subjectee.InAggroMentalState == SOMod.settings.SOAggroCalmEnabled) stateTypeDo = true;
-            if (!subjectee.InAggroMentalState) stateTypeDo = true;
+            // Aggro check
+            if (subjectee.InAggroMentalState == SOMod.Settings.SOAggroCalmEnabled)
+            {
+                stateTypeDo = true;
+            }
+
+            if (!subjectee.InAggroMentalState)
+            {
+                stateTypeDo = true;
+            }
+
             bool friendly = true;
 
             if (!subjectee.Faction.IsPlayer)
@@ -41,21 +66,38 @@ namespace SnapOut
                 }
             }
 
-            //Prisoner check
-            if (subjectee.guest.IsPrisoner == SOMod.settings.SONonFaction) { prisonerDo = true; traderDo = true; }
+            // Prisoner check
+            if (subjectee.guest.IsPrisoner == SOMod.Settings.SONonFaction)
+            {
+                prisonerDo = true;
+                traderDo = true;
+            }
 
-            //Trader check
-            if (!subjectee.Faction.IsPlayer) ;
+            // Trader check
+            if (!subjectee.Faction.IsPlayer)
             {
                 if (friendly)
                 {
-                    if (SOMod.settings.SOTraderCalm) { traderDo = true; prisonerDo = true; }
+                    if (SOMod.Settings.SOTraderCalm)
+                    {
+                        traderDo = true;
+                        prisonerDo = true;
+                    }
                 }
             }
 
-            //Colonist check
-            if (subjectee.Faction == Faction.OfPlayer) { prisonerDo = true; traderDo = true; }
-            if (prisonerDo && traderDo && stateTypeDo && awakeDo) return true;
+            // Colonist check
+            if (subjectee.Faction == Faction.OfPlayer)
+            {
+                prisonerDo = true;
+                traderDo = true;
+            }
+
+            if (prisonerDo && traderDo && stateTypeDo && awakeDo)
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -65,6 +107,7 @@ namespace SnapOut
             {
                 return true;
             }
+
             return false;
         }
 
@@ -74,12 +117,13 @@ namespace SnapOut
             {
                 return false;
             }
+
             return true;
         }
 
         public static void DebugLog(string message)
         {
-            if (SOMod.settings.SODebug)
+            if (SOMod.Settings.SODebug)
             {
                 Log.Message("[SnapOut] " + message);
             }
@@ -89,11 +133,12 @@ namespace SnapOut
         {
             float num = doer.GetStatValue(StatDefOf.SocialImpact, true);
             int opinion = subjectee.relations.OpinionOf(doer);
-            num = num * SOMod.settings.SODipWeight + (float)opinion * SOMod.settings.SOOpnWeight; //Formula
-            if (SOMod.settings.SOOpnOnly)
+            num = num * SOMod.Settings.SODipWeight + (float)opinion * SOMod.Settings.SOOpnWeight; // Formula
+            if (SOMod.Settings.SOOpnOnly)
             {
-                num = (float)opinion * SOMod.settings.SOOOpnWeight;
+                num = (float)opinion * SOMod.Settings.SOOOpnWeight;
             }
+
             num = Mathf.Clamp01(num);
             return num;
         }
@@ -102,40 +147,41 @@ namespace SnapOut
         {
             switch (type)
             {
-                case 1: //Success
-                    Messages.Message(string.Format("SuccessCalm".Translate(), new object[]
+                case 1: // Success
+                    Messages.Message(
+                        string.Format(
+                            "SuccessCalm".Translate(),
+                        new object[]
                     {
                                     doer.Name.ToStringShort,
                                     subjectee.Name.ToStringShort,
-                    }), MessageTypeDefOf.TaskCompletion);
+                    }),
+                        MessageTypeDefOf.TaskCompletion);
                     break;
 
-                case 2: //Failure
-                    Messages.Message(string.Format("FailCalm".Translate(), new object[]
+                case 2: // Failure
+                    Messages.Message(
+                        string.Format(
+                        "FailCalm".Translate(),
+                        new object[]
                                 {
                                     doer.Name.ToStringShort,
                                     subjectee.Name.ToStringShort,
-                                }), MessageTypeDefOf.TaskCompletion);
+                                }),
+                                MessageTypeDefOf.TaskCompletion);
                     break;
 
-                case 3: //Critical Failure
-                    Messages.Message(string.Format("AggroFailCalm".Translate(), new object[]
+                case 3: // Critical Failure
+                    Messages.Message(
+                        string.Format(
+                        "AggroFailCalm".Translate(),
+                        new object[]
                                     {
                                     doer.Name.ToStringShort,
                                     subjectee.Name.ToStringShort,
-                                    }), MessageTypeDefOf.TaskCompletion);
+                                    }),
+                                    MessageTypeDefOf.TaskCompletion);
                     break;
-            }
-        }
-
-        public static string GetCalmingMessage
-        {
-            get
-            {
-                int rand = UnityEngine.Random.Range(1, 21);
-                string cmrand = "CM" + rand;
-                DebugLog("Picked " + cmrand + " as a calming message");
-                return cmrand.Translate();
             }
         }
     }
