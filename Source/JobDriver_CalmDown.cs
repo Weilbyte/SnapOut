@@ -26,12 +26,16 @@ namespace SnapOut
             {
                 initAction = () =>
                 {
+                    if (pieceofs == null)
+                    {
+                        return;
+                    }
                     pieceofs.jobs.EndCurrentJob(JobCondition.InterruptForced);
                     this.TargetThingB = this.pawn; //Defining our initiator pawn
                     float rand = UnityEngine.Random.Range(0f, 0.70f);
                     pawn.interactions.TryInteractWith(pieceofs, SnapDefOf.CalmDownInteraction);
                     float num = SnapUtils.DoFormula(pawn, pieceofs);
-                    SnapUtils.logThis("Calm chance was " + num.ToString() + " versus random of " + rand.ToString());
+                    SnapUtils.DebugLog("Calm chance was " + num.ToString() + " versus random of " + rand.ToString());
                     if (rand > num)
                     {
                         #region failcondition
@@ -54,10 +58,10 @@ namespace SnapOut
                         if (bedroom != null)
                         {
                             int srand = Random.Range(0, 100);
-                            SnapUtils.logThis(pieceofs.Name.ToStringShort + " has a bedroom. Chance to get job is.. " + srand);
+                            SnapUtils.DebugLog(pieceofs.Name.ToStringShort + " has a bedroom. Chance to get job is.. " + srand);
                             if (srand <= 65) //65% chance
                             {
-                                SnapUtils.logThis(pieceofs.Name.ToStringShort + " received gotosafety job!");
+                                SnapUtils.DebugLog(pieceofs.Name.ToStringShort + " received gotosafety job!");
                                 gotosafetyjob.playerForced = true;
                                 gotosafetyjob.locomotionUrgency = LocomotionUrgency.Jog;
                                 pieceofs.jobs.EndCurrentJob(JobCondition.Succeeded);
@@ -65,7 +69,7 @@ namespace SnapOut
                             }
                             else
                             {
-                                SnapUtils.logThis(pieceofs.Name.ToStringShort + " didnt receive gotosafety job!");
+                                SnapUtils.DebugLog(pieceofs.Name.ToStringShort + " didnt receive gotosafety job!");
                             }
                         }
                         return;
@@ -124,14 +128,13 @@ namespace SnapOut
             yield return Toils_Interpersonal.GotoInteractablePosition(pieceofshit);
             yield return Toils_General.Do(delegate
             {
-                SnapUtils.modCompatDoer(pieceofs.MentalState.def.ToString(), pawn, pieceofs);
                 pieceofs.rotationTracker.FaceCell(pawn.PositionHeld);
                 if (pieceofs.InAggroMentalState)
                 {
                     float randa = UnityEngine.Random.Range(0f, 0.85f);
                     float numba = pawn.GetStatValue(StatDefOf.SocialImpact, true);
                     numba = numba * SOMod.settings.SOStunWeight;
-                    SnapUtils.logThis("Aggressive stun chance was " + numba.ToString() + " versus random of " + randa.ToString());
+                    SnapUtils.DebugLog("Aggressive stun chance was " + numba.ToString() + " versus random of " + randa.ToString());
                     if (randa > numba)
                     {
                         SnapUtils.DoStatusMessage(3, pawn, pieceofs);

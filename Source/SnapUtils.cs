@@ -1,18 +1,13 @@
-﻿using System;
+﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using RimWorld;
 using UnityEngine;
 using Verse;
 
 namespace SnapOut
 {
-    class SnapUtils
+    internal class SnapUtils
     {
-        private static readonly string FCalm = "FailCalm".Translate();
-        private static readonly string SCalm = "SuccessCalm".Translate();
-        private static readonly string AFCalm = "AggroFailCalm".Translate();
         private static List<string> incompatDef = new List<string>(new string[] { "RunWild", "PanicFlee", "HuntingTrip", "SocialFighting" }); //Def names of incompatible mental states
 
         /// <summary>
@@ -22,18 +17,22 @@ namespace SnapOut
         /// <returns></returns>
         public static bool CanDo(Pawn subjectee)
         {
+            if (subjectee == null)
+            {
+                return false;
+            }
+
             bool prisonerDo, traderDo, stateTypeDo, awakeDo;
             prisonerDo = traderDo = stateTypeDo = awakeDo = false;
 
             //Awake check
             if (RestUtility.Awake(subjectee)) { awakeDo = true; }
 
-
             //Aggro check
             if (subjectee.InAggroMentalState == SOMod.settings.SOAggroCalmEnabled) stateTypeDo = true;
             if (!subjectee.InAggroMentalState) stateTypeDo = true;
             bool friendly = true;
-            
+
             if (!subjectee.Faction.IsPlayer)
             {
                 if (subjectee.Faction.RelationKindWith(Faction.OfPlayer) == FactionRelationKind.Hostile)
@@ -41,13 +40,12 @@ namespace SnapOut
                     friendly = false;
                 }
             }
-            
 
             //Prisoner check
             if (subjectee.guest.IsPrisoner == SOMod.settings.SONonFaction) { prisonerDo = true; traderDo = true; }
 
             //Trader check
-            if (!subjectee.Faction.IsPlayer);
+            if (!subjectee.Faction.IsPlayer) ;
             {
                 if (friendly)
                 {
@@ -72,7 +70,7 @@ namespace SnapOut
 
         public static bool CompatCheck(string defname)
         {
-            if(incompatDef.Any(s => defname.Contains(s)))
+            if (incompatDef.Any(s => defname.Contains(s)))
             {
                 return false;
             }
@@ -105,21 +103,23 @@ namespace SnapOut
             switch (type)
             {
                 case 1: //Success
-                    Messages.Message(string.Format(SCalm, new object[]
+                    Messages.Message(string.Format("SuccessCalm".Translate(), new object[]
                     {
                                     doer.Name.ToStringShort,
                                     subjectee.Name.ToStringShort,
                     }), MessageTypeDefOf.TaskCompletion);
                     break;
+
                 case 2: //Failure
-                    Messages.Message(string.Format(FCalm, new object[]
+                    Messages.Message(string.Format("FailCalm".Translate(), new object[]
                                 {
                                     doer.Name.ToStringShort,
                                     subjectee.Name.ToStringShort,
                                 }), MessageTypeDefOf.TaskCompletion);
                     break;
+
                 case 3: //Critical Failure
-                    Messages.Message(string.Format(AFCalm, new object[]
+                    Messages.Message(string.Format("AggroFailCalm".Translate(), new object[]
                                     {
                                     doer.Name.ToStringShort,
                                     subjectee.Name.ToStringShort,
