@@ -67,13 +67,15 @@ namespace SnapOut
             if (SOMod.settings.SOAdvanced)
             {
                 listing_Standard.AddLabelLine("Formula = diplomacy skill * social multiplier + opinion * opinion multiplier");
-                //listing_Standard.AddLabeledSlider("SMultLabel".Translate() + " - " + SOMod.settings.SODipWeight, ref settings.SODipWeight, 0f, 1f); done
-                //listing_Standard.AddLabeledSlider("OMultLabel".Translate() + " - " + SOMod.settings.SOOpnWeight, ref settings.SOOpnWeight, 0f, 1f); done
-                //listing_Standard.AddLabeledSlider("OOMultLabel".Translate() + " - " + SOMod.settings.SOOOpnWeight, ref settings.SOOOpnWeight, 0f, 1f); done
-                //listing_Standard.AddLabeledSlider("StunWeight".Translate() + " - " + SOMod.settings.SOStunWeight, ref settings.SOStunWeight, 0f, 1f); done
-                listing_Standard.AddLabeledNumericalTextField("SMultLabel".Translate(), ref settings.SODipWeight, (float)0.5, 0, 1);
-                listing_Standard.AddLabeledNumericalTextField("OMultLabel".Translate(), ref settings.SOOpnWeight, (float)0.5, 0, 1);
-                listing_Standard.AddLabeledNumericalTextField("OOMultLabel".Translate().Translate(), ref settings.SOOOpnWeight, (float)0.5, 0, 1);
+                if (SOMod.settings.SOOpnOnly)
+                {
+                    listing_Standard.AddLabeledNumericalTextField("OOMultLabel".Translate().Translate(), ref settings.SOOOpnWeight, (float)0.5, 0, 1);
+                }
+                else
+                {
+                    listing_Standard.AddLabeledNumericalTextField("SMultLabel".Translate(), ref settings.SODipWeight, (float)0.5, 0, 1);
+                    listing_Standard.AddLabeledNumericalTextField("OMultLabel".Translate(), ref settings.SOOpnWeight, (float)0.5, 0, 1);
+                }
                 listing_Standard.AddLabeledNumericalTextField("StunWeight".Translate(), ref settings.SOStunWeight, (float)0.5, 0, 1);
 
                 listing_Standard.AddLabeledNumericalTextField("CalmDuration".Translate(), ref SOMod.settings.SOCalmDuration);
@@ -81,7 +83,7 @@ namespace SnapOut
                 listing_Standard.AddLabeledCheckbox("DebugChanceSetting".Translate() + " ", ref settings.SODebug);
                 if (listing_Standard.ButtonText("Default"))
                 {
-                    SnapUtils.logThis("Reset advanced settings to defaults");
+                    SnapUtils.DebugLog("Reset advanced settings to defaults");
                     SOMod.settings.SODipWeight = 0.2f;
                     SOMod.settings.SOOpnWeight = 0.0014f;
                     SOMod.settings.SOOOpnWeight = 0.006f;
