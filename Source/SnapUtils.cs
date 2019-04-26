@@ -15,9 +15,27 @@ namespace SnapOut
         private static readonly string AFCalm = "AggroFailCalm".Translate();
         private static List<string> incompatdef = new List<string>(new string[] { "RunWild", "PanicFlee", "HuntingTrip", "SocialFighting" }); //Def names of incompatible mental states
 
+        /// <summary>
+        /// Checks to see if target pawn meets mod conditions to be calmed
+        /// </summary>
+        /// <param name="subjectee">Target pawn</param>
+        /// <returns></returns>
         public static bool canDo(Pawn subjectee)
         {
-            bool PrisonerDo = false; bool TraderDo = false; bool StateTypeDo = false;
+            bool PrisonerDo, TraderDo, StateTypeDo, AwakeDo;
+            PrisonerDo = TraderDo = StateTypeDo = AwakeDo = false;
+
+            //Awake check
+            if (RestUtility.Awake(subjectee))
+            {
+                AwakeDo = true;
+                logThis("Pawn is AWAKE.");
+            }
+            else
+            {
+                logThis("Pawn is NOT AWAKE.");
+            }
+
 
             //Aggro check
             if (subjectee.InAggroMentalState == SOMod.settings.SOAggroCalmEnabled) StateTypeDo = true;
@@ -47,7 +65,7 @@ namespace SnapOut
 
             //Colonist check
             if (subjectee.Faction == Faction.OfPlayer) { PrisonerDo = true; TraderDo = true; }
-            if (PrisonerDo && TraderDo && StateTypeDo) return true;
+            if (PrisonerDo && TraderDo && StateTypeDo && AwakeDo) return true;
             return false;
         }
 
