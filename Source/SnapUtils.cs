@@ -13,33 +13,25 @@ namespace SnapOut
         private static readonly string FCalm = "FailCalm".Translate();
         private static readonly string SCalm = "SuccessCalm".Translate();
         private static readonly string AFCalm = "AggroFailCalm".Translate();
-        private static List<string> incompatdef = new List<string>(new string[] { "RunWild", "PanicFlee", "HuntingTrip", "SocialFighting" }); //Def names of incompatible mental states
+        private static List<string> incompatDef = new List<string>(new string[] { "RunWild", "PanicFlee", "HuntingTrip", "SocialFighting" }); //Def names of incompatible mental states
 
         /// <summary>
         /// Checks to see if target pawn meets mod conditions to be calmed
         /// </summary>
         /// <param name="subjectee">Target pawn</param>
         /// <returns></returns>
-        public static bool canDo(Pawn subjectee)
+        public static bool CanDo(Pawn subjectee)
         {
-            bool PrisonerDo, TraderDo, StateTypeDo, AwakeDo;
-            PrisonerDo = TraderDo = StateTypeDo = AwakeDo = false;
+            bool prisonerDo, traderDo, stateTypeDo, awakeDo;
+            prisonerDo = traderDo = stateTypeDo = awakeDo = false;
 
             //Awake check
-            if (RestUtility.Awake(subjectee))
-            {
-                AwakeDo = true;
-                logThis("Pawn is AWAKE.");
-            }
-            else
-            {
-                logThis("Pawn is NOT AWAKE.");
-            }
+            if (RestUtility.Awake(subjectee)) { awakeDo = true; }
 
 
             //Aggro check
-            if (subjectee.InAggroMentalState == SOMod.settings.SOAggroCalmEnabled) StateTypeDo = true;
-            if (!subjectee.InAggroMentalState) StateTypeDo = true;
+            if (subjectee.InAggroMentalState == SOMod.settings.SOAggroCalmEnabled) stateTypeDo = true;
+            if (!subjectee.InAggroMentalState) stateTypeDo = true;
             bool friendly = true;
             
             if (!subjectee.Faction.IsPlayer)
@@ -52,20 +44,20 @@ namespace SnapOut
             
 
             //Prisoner check
-            if (subjectee.guest.IsPrisoner == SOMod.settings.SONonFaction) { PrisonerDo = true; TraderDo = true; }
+            if (subjectee.guest.IsPrisoner == SOMod.settings.SONonFaction) { prisonerDo = true; traderDo = true; }
 
             //Trader check
             if (!subjectee.Faction.IsPlayer);
             {
                 if (friendly)
                 {
-                    if (SOMod.settings.SOTraderCalm) { TraderDo = true; PrisonerDo = true; }
+                    if (SOMod.settings.SOTraderCalm) { traderDo = true; prisonerDo = true; }
                 }
             }
 
             //Colonist check
-            if (subjectee.Faction == Faction.OfPlayer) { PrisonerDo = true; TraderDo = true; }
-            if (PrisonerDo && TraderDo && StateTypeDo && AwakeDo) return true;
+            if (subjectee.Faction == Faction.OfPlayer) { prisonerDo = true; traderDo = true; }
+            if (prisonerDo && traderDo && stateTypeDo && awakeDo) return true;
             return false;
         }
 
@@ -78,9 +70,9 @@ namespace SnapOut
             return false;
         }
 
-        public static bool breakCompatCheck(string defname)
+        public static bool CompatCheck(string defname)
         {
-            if(incompatdef.Any(s => defname.Contains(s)))
+            if(incompatDef.Any(s => defname.Contains(s)))
             {
                 return false;
             }
@@ -94,7 +86,7 @@ namespace SnapOut
 
         }
 
-        public static void logThis(string message)
+        public static void DebugLog(string message)
         {
             if (SOMod.settings.SODebug)
             {
@@ -102,7 +94,7 @@ namespace SnapOut
             }
         }
 
-        public static float doFormula(Pawn doer, Pawn subjectee)
+        public static float DoFormula(Pawn doer, Pawn subjectee)
         {
             float num = doer.GetStatValue(StatDefOf.SocialImpact, true);
             int opinion = subjectee.relations.OpinionOf(doer);
@@ -115,7 +107,7 @@ namespace SnapOut
             return num;
         }
 
-        public static void doStatusMessage(int type, Pawn doer, Pawn subjectee)
+        public static void DoStatusMessage(int type, Pawn doer, Pawn subjectee)
         {
             switch (type)
             {
@@ -149,7 +141,7 @@ namespace SnapOut
             {
                 int rand = UnityEngine.Random.Range(1, 21);
                 string cmrand = "CM" + rand;
-                logThis("Picked " + cmrand + " as a calming message");
+                DebugLog("Picked " + cmrand + " as a calming message");
                 return cmrand.Translate();
             }
         }

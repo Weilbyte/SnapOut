@@ -30,7 +30,7 @@ namespace SnapOut
                     this.TargetThingB = this.pawn; //Defining our initiator pawn
                     float rand = UnityEngine.Random.Range(0f, 0.70f);
                     pawn.interactions.TryInteractWith(pieceofs, SnapDefOf.CalmDownInteraction);
-                    float num = SnapUtils.doFormula(pawn, pieceofs);
+                    float num = SnapUtils.DoFormula(pawn, pieceofs);
                     SnapUtils.logThis("Calm chance was " + num.ToString() + " versus random of " + rand.ToString());
                     if (rand > num)
                     {
@@ -43,12 +43,12 @@ namespace SnapOut
                         if (pieceofs.InAggroMentalState)
                         {
                             pieceofs.TryStartAttack(pawn);
-                            SnapUtils.doStatusMessage(3, pawn, pieceofs);
+                            SnapUtils.DoStatusMessage(3, pawn, pieceofs);
                             pieceofs.mindState.lastAssignedInteractTime = Find.TickManager.TicksGame;
                             return;
                         }
 
-                        SnapUtils.doStatusMessage(2, pawn, pieceofs);
+                        SnapUtils.DoStatusMessage(2, pawn, pieceofs);
                         pieceofs.mindState.lastAssignedInteractTime = Find.TickManager.TicksGame;
                         Room bedroom = pieceofs.ownership.OwnedRoom;
                         if (bedroom != null)
@@ -81,7 +81,7 @@ namespace SnapOut
                     }
                     pawn.needs.mood.thoughts.memories.TryGainMemory(SnapDefOf.HelpedThought, null);
                     pawn.skills.Learn(SkillDefOf.Social, Rand.Range(50, 125));
-                    SnapUtils.doStatusMessage(1, pawn, pieceofs);
+                    SnapUtils.DoStatusMessage(1, pawn, pieceofs);
                     if (pieceofs.InAggroMentalState) { pieceofs.MentalState.RecoverFromState(); pieceofs.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Wander_Sad); }
                     recoverjob.playerForced = true;
                     pieceofs.jobs.EndCurrentJob(JobCondition.Succeeded);
@@ -134,7 +134,7 @@ namespace SnapOut
                     SnapUtils.logThis("Aggressive stun chance was " + numba.ToString() + " versus random of " + randa.ToString());
                     if (randa > numba)
                     {
-                        SnapUtils.doStatusMessage(3, pawn, pieceofs);
+                        SnapUtils.DoStatusMessage(3, pawn, pieceofs);
                         pieceofs.TryStartAttack(pawn);
                         pieceofs.mindState.lastAssignedInteractTime = Find.TickManager.TicksGame;
                         EndJobWith(JobCondition.Incompletable);
