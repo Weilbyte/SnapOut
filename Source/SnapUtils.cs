@@ -61,7 +61,7 @@ namespace SnapOut
             return false;
         }
 
-        public static bool IsCapableOf(Pawn doer)
+        public static bool IsCapable(Pawn doer)
         {
             if (doer.health.capacities.CapableOf(PawnCapacityDefOf.Talking) && doer.health.capacities.CapableOf(PawnCapacityDefOf.Hearing) && doer.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
             {
@@ -77,13 +77,6 @@ namespace SnapOut
                 return false;
             }
             return true;
-        }
-
-        public static void modCompatDoer(string defname, Pawn doer, Pawn subjectee)
-        {
-            //Psychology compat.
-            //if (defname.Contains()) { subjectee.stances.stunner.StunFor(SOMod.settings.SOCalmDuration, doer); }
-
         }
 
         public static void DebugLog(string message)

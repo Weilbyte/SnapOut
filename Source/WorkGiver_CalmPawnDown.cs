@@ -27,7 +27,7 @@ namespace SnapOut
                         SnapUtils.logThis(pawn2.MentalState.def.ToString());
                         SnapUtils.logThis(pawn2.Name.ToStringShort + " has met HumanLike and InMentalState conditions.");
                         bool recent = Find.TickManager.TicksGame < pawn2.mindState.lastAssignedInteractTime + 15000;
-                        if (SnapUtils.CanDo(pawn2) && SnapUtils.IsCapableOf(pawn) && !recent && pawn.CanReserve(pawn2)) 
+                        if (SnapUtils.CanDo(pawn2) && SnapUtils.IsCapable(pawn) && !recent && pawn.CanReserve(pawn2)) 
                         {
                             SnapUtils.logThis("Calming job initiated on " + pawn2.Name.ToStringShort + " by " + pawn.Name.ToStringShort);
                             return new Job(SnapDefOf.CalmDownJob, pawn2);
