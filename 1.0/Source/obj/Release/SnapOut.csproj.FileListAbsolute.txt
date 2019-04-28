@@ -6,3 +6,7 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\snapout\Source\obj\R
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\snapout\Assemblies\SnapOut.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\snapout\Source\obj\Release\SnapOut.csproj.CopyComplete
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\snapout\Source\obj\Release\SnapOut.csprojAssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\snapout\1.0\Assemblies\SnapOut.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\snapout\1.0\Source\obj\Release\SnapOut.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\snapout\1.0\Source\obj\Release\SnapOut.csproj.CopyComplete
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\snapout\1.0\Source\obj\Release\SnapOut.dll
