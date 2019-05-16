@@ -6,3 +6,4 @@ Source/obj
 *.csproj.user
 /About/About-Debug.xml
 /About/About-Release.xml
+1.0/Source/obj
