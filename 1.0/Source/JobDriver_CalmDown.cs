@@ -32,6 +32,12 @@
                     float rand = UnityEngine.Random.Range(0f, 0.70f);
                     pawn.interactions.TryInteractWith(pieceofs, SnapDefOf.CalmDownInteraction);
                     float num = SnapUtils.DoFormula(pawn, pieceofs);
+                    
+                    if (SOMod.Settings.AlwaysSucceed)
+                    {
+                        rand = 0f;
+                        num = 1f;
+                    }
                     SnapUtils.DebugLog("Calm chance was " + num.ToString() + " versus random of " + rand.ToString());
                     if (rand > num)
                     {

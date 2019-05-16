@@ -23,10 +23,13 @@ namespace SnapOut
         {
             string host = "rimcounter.weilbyte.net";
             string appname = "SnapOut";
-
             Uri URL = new Uri("http://" + host + "/api/v1/count/" + appname);
-            var client = new WebClient();
-            client.UploadStringAsync(URL, "");
+            if (SOMod.Settings.LaunchCounter)
+            {
+                var client = new WebClient();
+                client.UploadStringAsync(URL, "");
+            }
+
         }
     }
 }

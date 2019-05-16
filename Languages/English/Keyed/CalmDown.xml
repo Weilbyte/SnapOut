@@ -19,6 +19,8 @@
   <DebugChanceSetting>Output debug and chance messages in console</DebugChanceSetting>
   <NoCathEnabledLabel>Disable Catharsis</NoCathEnabledLabel>
   <Cooldown>Cool down on failed attempt (ticks)</Cooldown>
+  <LaunchCounterSetting>Launch Counter</LaunchCounterSetting>
+  <AlwaysSucceedSetting>No fail (debug)</AlwaysSucceedSetting>
 
   <CM1>It will be all fine.</CM1>
   <CM2>Don't worry, I've got your back.</CM2>

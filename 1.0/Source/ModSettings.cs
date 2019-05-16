@@ -13,6 +13,8 @@
         public bool SOTraderCalm = true;
         public bool SOAdvanced = false;
         public bool SODebug = false;
+        public bool LaunchCounter = true;
+        public bool AlwaysSucceed = false;
         public float SODipWeight = 0.2f;
         public float SOOpnWeight = 0.0014f;
         public float SOOOpnWeight = 0.006f;
@@ -30,6 +32,8 @@
             Scribe_Values.Look<bool>(ref this.SOTraderCalm, "SOTraderCalm", true);
             Scribe_Values.Look<bool>(ref this.SOAdvanced, "SOAdvancedMenu", false);
             Scribe_Values.Look<bool>(ref this.SODebug, "SODebug", false);
+            Scribe_Values.Look<bool>(ref this.LaunchCounter, "LaunchCounter", true);
+            Scribe_Values.Look<bool>(ref this.AlwaysSucceed, "AlwaysSucceed", false);
             Scribe_Values.Look<float>(ref this.SOStunWeight, "SOStunWeight", 0.45f);
             Scribe_Values.Look<float>(ref this.SODipWeight, "SODipWeight", 0.2f);
             Scribe_Values.Look<float>(ref this.SOOpnWeight, "SOOpnWeight", 0.0014f);
@@ -82,6 +86,8 @@
                 listing_Standard.AddLabeledNumericalTextField("CalmDuration".Translate(), ref SOMod.Settings.SOCalmDuration);
                 listing_Standard.AddLabeledNumericalTextField("Cooldown".Translate(), ref SOMod.Settings.SOCooldown);
                 listing_Standard.AddLabeledCheckbox("DebugChanceSetting".Translate() + " ", ref Settings.SODebug);
+                listing_Standard.AddLabeledCheckbox("LaunchCounterSetting".Translate() + " ", ref Settings.LaunchCounter); 
+                listing_Standard.AddLabeledCheckbox("AlwaysSucceedSetting".Translate() + " ", ref Settings.AlwaysSucceed);
                 if (listing_Standard.ButtonText("Default"))
                 {
                     SnapUtils.DebugLog("Reset advanced settings to defaults");
@@ -91,6 +97,7 @@
                     SOMod.Settings.SOStunWeight = 0.55f;
                     SOMod.Settings.SOCalmDuration = 1250;
                     SOMod.Settings.SODebug = false;
+                    SOMod.Settings.LaunchCounter = true;
                     SOMod.Settings.SOCooldown = 15000;
                 }
             }
