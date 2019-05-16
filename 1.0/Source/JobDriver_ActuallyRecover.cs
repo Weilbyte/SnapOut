@@ -19,6 +19,7 @@
             Pawn rpawn = this.pawn;
             yield return Toils_General.Wait(1);
             rpawn.MentalState.RecoverFromState();
+            rpawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
         }
     }
 }
