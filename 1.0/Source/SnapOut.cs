@@ -22,7 +22,7 @@ namespace SnapOut
         public static void FinalizeInit_Postfixu()
         {
             string host = "rimcounter.weilbyte.net";
-            string appname = "SnapOut!";
+            string appname = "SnapOut";
 
             Uri URL = new Uri("http://" + host + "/api/v1/count/" + appname);
             var client = new WebClient();
