@@ -22,7 +22,7 @@
                 {
                     if (SnapUtils.CompatCheck(targetPawn.MentalState.def.ToString()))
                     {
-                        bool recent = Find.TickManager.TicksGame < targetPawn.mindState.lastAssignedInteractTime + 15000;
+                        bool recent = Find.TickManager.TicksGame < targetPawn.mindState.lastAssignedInteractTime + SOMod.Settings.Cooldown;
                         if (pawn.CurJobDef != SnapDefOf.CalmDownJob)
                         {
                             if (SnapUtils.CanDo(targetPawn) && SnapUtils.IsCapable(pawn) && !recent && pawn.CanReserve(targetPawn))

@@ -20,7 +20,7 @@
         public float SOOOpnWeight = 0.006f;
         public float SOStunWeight = 0.55f;
         public int SOCalmDuration = 1250;
-        public int SOCooldown = 15000;
+        public int Cooldown = 15000;
 
         public override void ExposeData()
         {
@@ -39,7 +39,7 @@
             Scribe_Values.Look<float>(ref this.SOOpnWeight, "SOOpnWeight", 0.0014f);
             Scribe_Values.Look<float>(ref this.SOOOpnWeight, "SOOOpnWeight", 0.006f);
             Scribe_Values.Look<int>(ref this.SOCalmDuration, "SOCalmDuration", 1250);
-            Scribe_Values.Look<int>(ref this.SOCooldown, "SOCoolDown", 15000);
+            Scribe_Values.Look<int>(ref this.Cooldown, "CoolDown", 15000);
         }
     }
 
@@ -84,7 +84,7 @@
                 listing_Standard.AddLabeledNumericalTextField("StunWeight".Translate(), ref Settings.SOStunWeight, (float)0.5, 0, 1);
 
                 listing_Standard.AddLabeledNumericalTextField("CalmDuration".Translate(), ref SOMod.Settings.SOCalmDuration);
-                listing_Standard.AddLabeledNumericalTextField("Cooldown".Translate(), ref SOMod.Settings.SOCooldown);
+                listing_Standard.AddLabeledNumericalTextField("Cooldown".Translate(), ref SOMod.Settings.Cooldown);
                 listing_Standard.AddLabeledCheckbox("DebugChanceSetting".Translate() + " ", ref Settings.SODebug);
                 listing_Standard.AddLabeledCheckbox("LaunchCounterSetting".Translate() + " ", ref Settings.LaunchCounter); 
                 listing_Standard.AddLabeledCheckbox("AlwaysSucceedSetting".Translate() + " ", ref Settings.AlwaysSucceed);
@@ -98,7 +98,7 @@
                     SOMod.Settings.SOCalmDuration = 1250;
                     SOMod.Settings.SODebug = false;
                     SOMod.Settings.LaunchCounter = true;
-                    SOMod.Settings.SOCooldown = 15000;
+                    SOMod.Settings.Cooldown = 15000;
                 }
             }
 
