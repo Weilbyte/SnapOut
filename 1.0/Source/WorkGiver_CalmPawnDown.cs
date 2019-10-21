@@ -6,51 +6,42 @@
 
     public class WorkGiver_CalmPawnDown : WorkGiver_Warden_Chat
     {
-        #region shouldskip
         public override bool ShouldSkip(Pawn pawn, bool forced = false)
         {
-            return base.ShouldSkip(pawn) && (pawn.Faction != Faction.OfPlayer) && (!pawn.RaceProps.Humanlike);           
+            return base.ShouldSkip(pawn) && (pawn.Faction != Faction.OfPlayer) && (!pawn.RaceProps.Humanlike);
         }
-        #endregion
 
-        #region jobonthing
-        public override Job JobOnThing(Pawn pawn, Thing thang, bool forced = true)
+        public override Job JobOnThing(Pawn pawn, Thing targetThing, bool forced = true)
         {
-            Pawn pawn2 = (Pawn)thang;
-            if (pawn2 == null)
+            if ((targetThing == null) || (pawn == targetThing))
             {
                 return null;
-            }
-
-            if (pawn2.RaceProps.Humanlike)
-            {
-                if (pawn2.InMentalState) 
+            } else {
+                Pawn targetPawn = (Pawn)targetThing;
+                if (targetPawn.RaceProps.Humanlike && targetPawn.InMentalState)
                 {
-                    if (SnapUtils.CompatCheck(pawn2.MentalState.def.ToString()))
+                    if (SnapUtils.CompatCheck(targetPawn.MentalState.def.ToString()))
                     {
-                        SnapUtils.DebugLog(pawn2.MentalState.def.ToString());
-                        SnapUtils.DebugLog(pawn2.Name.ToStringShort + " has met HumanLike and InMentalState conditions.");
-                        bool recent = Find.TickManager.TicksGame < pawn2.mindState.lastAssignedInteractTime + 15000;
-                        if (pawn.CurJobDef == SnapDefOf.CalmDownJob)
+                        bool recent = Find.TickManager.TicksGame < targetPawn.mindState.lastAssignedInteractTime + 15000;
+                        if (pawn.CurJobDef != SnapDefOf.CalmDownJob)
                         {
-                            return null; 
+                            if (SnapUtils.CanDo(targetPawn) && SnapUtils.IsCapable(pawn) && !recent && pawn.CanReserve(targetPawn))
+                            {
+                                SnapUtils.DebugLog(string.Format("{0} given calm job with {1} as target", pawn.Name.ToStringShort, targetPawn.Name.ToStringShort));
+                                return new Job(SnapDefOf.CalmDownJob, targetPawn);
+                            }
                         }
-
-                        if (SnapUtils.CanDo(pawn2) && SnapUtils.IsCapable(pawn) && !recent && pawn.CanReserve(pawn2)) 
-                        {
-                            SnapUtils.DebugLog("Calming job initiated on " + pawn2.Name.ToStringShort + " by " + pawn.Name.ToStringShort);
-                            return new Job(SnapDefOf.CalmDownJob, pawn2);
-                        }
+                        SnapUtils.DebugLog(string.Format("{0} has been considered but conditions were not fulfilled", targetPawn.Name.ToStringShort));
+                        return null;
                     }
-                    
-                    return null;
+                    else
+                    {
+                        SnapUtils.DebugLog(string.Format("{0} mental state def has failed compatability check", targetPawn.MentalState.def.ToString()));
+                        return null;
+                    }
                 }
-
-                return null;
             }
-
             return null;
         }
-        #endregion 
     }
 }
