@@ -19,7 +19,7 @@
             {
                 int rand = UnityEngine.Random.Range(1, 21);
                 string cmrand = "CM" + rand;
-                DebugLog("Picked " + cmrand + " as a calming message");
+                DebugLog(string.Format("Calming message ID is {0}", cmrand));
                 return cmrand.Translate();
             }
         }
@@ -98,9 +98,14 @@
             return false;
         }
 
-        public static bool IsCapable(Pawn doer)
+        /// <summary>
+        /// Checks if pawn is capable of calming others down
+        /// </summary>
+        /// <param name="pawn">The Pawn to Check</param>
+        /// <returns>True or False</returns>
+        public static bool IsCapable(Pawn pawn)
         {
-            if (doer.health.capacities.CapableOf(PawnCapacityDefOf.Talking) && doer.health.capacities.CapableOf(PawnCapacityDefOf.Hearing) && doer.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
+            if (pawn.health.capacities.CapableOf(PawnCapacityDefOf.Talking) && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Hearing) && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Moving))
             {
                 return true;
             }
@@ -108,6 +113,11 @@
             return false;
         }
 
+        /// <summary>
+        /// Checks if provided mental state def name is listed as incompatible
+        /// </summary>
+        /// <param name="defname">Def Name</param>
+        /// <returns>True or False</returns>
         public static bool CompatCheck(string defname)
         {
             if (incompatDef.Any(s => defname.Contains(s)))
@@ -118,6 +128,10 @@
             return true;
         }
 
+        /// <summary>
+        /// Logs debug message to the game's console
+        /// </summary>
+        /// <param name="message">Message</param>
         public static void DebugLog(string message)
         {
             if (SOMod.Settings.SODebug)
@@ -126,6 +140,12 @@
             }
         }
 
+        /// <summary>
+        /// Runs the chance formula
+        /// </summary>
+        /// <param name="doer">Pawn</param>
+        /// <param name="subjectee">Target pawn</param>
+        /// <returns>Chance of Success</returns>
         public static float DoFormula(Pawn doer, Pawn subjectee)
         {
             float num = doer.GetStatValue(StatDefOf.SocialImpact, true);
@@ -140,6 +160,15 @@
             return num;
         }
 
+        /// <summary>
+        /// Summons a status message
+        /// </summary>
+        /// <param name="type">The type of message: 
+        /// 1 - Success;
+        /// 2 - Failure;
+        /// 3 - Critical Failure</param>
+        /// <param name="doer">Pawn</param>
+        /// <param name="subjectee">Target Pawn</param>
         public static void DoStatusMessage(int type, Pawn doer, Pawn subjectee)
         {
             switch (type)
