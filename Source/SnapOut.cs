@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Verse;
-using Harmony;
-using System.Reflection;
-using System.Net;
-
-namespace SnapOut
+﻿namespace SnapOut
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Verse;
+    using Harmony;
+    using System.Reflection;
+    using System.Net;
+    using Multiplayer.API;
+
     public class Mod : Verse.Mod
     {
         public Mod(ModContentPack content) : base(content)
@@ -17,9 +18,13 @@ namespace SnapOut
             MethodInfo targetmethod = AccessTools.Method(typeof(Verse.Game), "FinalizeInit");
             HarmonyMethod postfixmethod = new HarmonyMethod(typeof(SnapOut.Mod).GetMethod("FinalizeInit_Postfix"));
             snapout.Patch(targetmethod, null, postfixmethod);
+            if (MP.enabled)
+            {
+                MP.RegisterAll();
+            }
         }
 
-        public static void FinalizeInit_Postfixu()
+        public static void FinalizeInit_Postfix()
         {
             string host = "rimcounter.weilbyte.net";
             string appname = "SnapOut";
@@ -32,4 +37,5 @@ namespace SnapOut
 
         }
     }
+
 }

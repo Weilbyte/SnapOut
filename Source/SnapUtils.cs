@@ -5,22 +5,20 @@
     using RimWorld;
     using UnityEngine;
     using Verse;
+    using Multiplayer.API;
 
     internal class SnapUtils
     {
-
         /// <summary>
         /// Gets a random calming message from the translation files. Picks random message with ID between 1-21.
         /// </summary>
-        public static string GetCalmingMessage
+        [SyncMethod]
+        public static string GetCalmingMessage()
         {
-            get
-            {
-                int rand = UnityEngine.Random.Range(1, 21);
-                string cmrand = "CM" + rand;
-                DebugLog(string.Format("Calming message ID is {0}", cmrand));
-                return cmrand.Translate();
-            }
+            int rand = Rand.RangeSeeded(1, 21, Find.TickManager.TicksAbs);
+            string cmrand = "CM" + rand;
+            DebugLog(string.Format("Calming message ID is {0}", cmrand));
+            return cmrand.Translate();
         }
 
         /// <summary>
@@ -41,6 +39,7 @@
         /// <param name="doer">Pawn</param>
         /// <param name="subjectee">Target pawn</param>
         /// <returns>Chance of Success</returns>
+        [SyncMethod]
         public static float DoFormula(Pawn doer, Pawn subjectee)
         {
             float num = doer.GetStatValue(StatDefOf.SocialImpact, true);
@@ -50,7 +49,6 @@
             {
                 num = (float)opinion * SOMod.Settings.OOpnWeight;
             }
-
             num = Mathf.Clamp01(num);
             return num;
         }

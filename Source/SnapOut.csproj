@@ -32,12 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="1Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\0Harmony.dll</HintPath>
+      <HintPath>..\Assemblies\1Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="1SettingsHelper">
-      <HintPath>..\Assemblies\1SettingsHelper.dll</HintPath>
+    <Reference Include="2SettingsHelper">
+      <HintPath>..\Assemblies\2SettingsHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="0MultiplayerAPI">
+      <HintPath>..\Assemblies\0MultiplayerAPI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>

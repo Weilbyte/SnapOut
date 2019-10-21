@@ -5,6 +5,7 @@
     using UnityEngine;
     using Verse;
     using Verse.AI;
+    using Multiplayer.API;
 
     /// <summary>
     /// Job driver. This is the first job assigned when calming down a pawn.
@@ -15,6 +16,7 @@
         private Job recoverjob = new Job(SnapDefOf.SnappingOutJob);
         private Job gotosafetyjob = new Job(SnapDefOf.GoToSafetyJob);
 
+        [SyncMethod]
         protected Toil CalmDown(TargetIndex ctrg, int dur)
         {
             Pawn pieceofs = (Pawn)this.pawn.CurJob.targetA.Thing;
@@ -29,7 +31,7 @@
 
                     pieceofs.jobs.EndCurrentJob(JobCondition.InterruptForced);
                     this.TargetThingB = this.pawn; // Defining our initiator pawn
-                    float rand = UnityEngine.Random.Range(0f, 0.70f);
+                    float rand = Rand.RangeSeeded(0f, 0.70f, Find.TickManager.TicksAbs);
                     pawn.interactions.TryInteractWith(pieceofs, SnapDefOf.CalmDownInteraction);
                     float num = SnapUtils.DoFormula(pawn, pieceofs);
                     
@@ -38,12 +40,12 @@
                         rand = 0f;
                         num = 1f;
                     }
-                    SnapUtils.DebugLog("Calm chance was " + num.ToString() + " versus random of " + rand.ToString());
+                    SnapUtils.DebugLog(string.Format("Success chance of {0} opposed to failure chance of {1}", num.ToString(), rand.ToString()));
                     if (rand > num)
                     {
                         if (SOMod.Settings.MessagesEnabled)
                         {
-                            MoteMaker.ThrowText(this.pawn.DrawPos + this.pawn.Drawer.renderer.BaseHeadOffsetAt(this.pawn.Rotation), this.pawn.Map, SnapUtils.GetCalmingMessage, Color.red, 3.85f);
+                            MoteMaker.ThrowText(this.pawn.DrawPos + this.pawn.Drawer.renderer.BaseHeadOffsetAt(this.pawn.Rotation), this.pawn.Map, SnapUtils.GetCalmingMessage(), Color.red, 3.85f);
                         }
 
                         if (pieceofs.InAggroMentalState)
@@ -59,7 +61,7 @@
                         Room bedroom = pieceofs.ownership.OwnedRoom;
                         if (bedroom != null)
                         {
-                            int srand = Random.Range(0, 100);
+                            int srand = Rand.RangeSeeded(0, 100, Find.TickManager.TicksAbs);
                             SnapUtils.DebugLog(pieceofs.Name.ToStringShort + " has a bedroom. Chance to get job is.. " + srand);
                             if (srand <= 65) // 65% chance
                             {
@@ -80,11 +82,11 @@
 
                     if (SOMod.Settings.MessagesEnabled)
                     {
-                        MoteMaker.ThrowText(this.pawn.DrawPos + this.pawn.Drawer.renderer.BaseHeadOffsetAt(this.pawn.Rotation), this.pawn.Map, SnapUtils.GetCalmingMessage, Color.green, 3.85f);
+                        MoteMaker.ThrowText(this.pawn.DrawPos + this.pawn.Drawer.renderer.BaseHeadOffsetAt(this.pawn.Rotation), this.pawn.Map, SnapUtils.GetCalmingMessage(), Color.green, 3.85f);
                     }
 
                     pawn.needs.mood.thoughts.memories.TryGainMemory(SnapDefOf.HelpedThought, null);
-                    pawn.skills.Learn(SkillDefOf.Social, Rand.Range(50, 125));
+                    pawn.skills.Learn(SkillDefOf.Social, Rand.RangeSeeded(50, 125, Find.TickManager.TicksAbs));
                     SnapUtils.DoStatusMessage(1, pawn, pieceofs);
                     if (pieceofs.InAggroMentalState)
                     {
@@ -104,11 +106,13 @@
             return toil.WithProgressBarToilDelay(TargetIndex.B);
         }
 
+        [SyncMethod]
         public override bool TryMakePreToilReservations(bool erroronfailed = false)
         {
             return this.pawn.Reserve(this.job.GetTarget(PieceOfShit), this.job, 1, -1, null);
         }
 
+        [SyncMethod]
         protected override IEnumerable<Toil> MakeNewToils()
         {
             Pawn pieceofs = (Pawn)this.pawn.CurJob.targetA.Thing;
@@ -126,20 +130,17 @@
                 pieceofs.rotationTracker.FaceCell(pawn.PositionHeld);
                 if (pieceofs.InAggroMentalState)
                 {
-                    float randa = UnityEngine.Random.Range(0f, 0.85f);
-                    float numba = pawn.GetStatValue(StatDefOf.SocialImpact, true);
-                    numba = numba * SOMod.Settings.StunWeight;
-                    SnapUtils.DebugLog("Aggressive stun chance was " + numba.ToString() + " versus random of " + randa.ToString());
-                    if (randa > numba)
+                    float rand = Rand.RangeSeeded(0f, 0.85f, Find.TickManager.TicksAbs);
+                    float socialImpact = pawn.GetStatValue(StatDefOf.SocialImpact, true);
+                    socialImpact *= SOMod.Settings.StunWeight;
+                    SnapUtils.DebugLog(string.Format("Aggressive stun success chance was {0} opposed to a failure chance of {1}", socialImpact.ToString(), rand.ToString()));
+                    if (rand > socialImpact)
                     {
                         SnapUtils.DoStatusMessage(3, pawn, pieceofs);
                         pieceofs.TryStartAttack(pawn);
                         pieceofs.mindState.lastAssignedInteractTime = Find.TickManager.TicksGame;
                         EndJobWith(JobCondition.Incompletable);
-                    }
-
-                    if (numba > randa)
-                    {
+                    } else {
                         pieceofs.stances.stunner.StunFor(SOMod.Settings.CalmDuration, pawn);
                     }
                 }
