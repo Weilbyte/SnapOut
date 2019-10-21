@@ -25,7 +25,7 @@
         }
 
         /// <summary>
-        /// Checks to see if target pawn meets mod conditions to be calmed
+        /// Checks to see if target pawn meets conditions to be calmed
         /// </summary>
         /// <param name="subjectee">Target pawn</param>
         /// <returns>True or False</returns>
@@ -33,11 +33,14 @@
         {
             if (subjectee == null)
             {
+                SnapUtils.DebugLog("A null subjectee was provided to CanDo");
+                return false;
+            } else if (subjectee.Faction == null)
+            {
                 return false;
             }
 
-            bool prisonerDo, traderDo, stateTypeDo, awakeDo;
-            prisonerDo = traderDo = stateTypeDo = awakeDo = false;
+            bool prisonerDo = false, traderDo = false, stateTypeDo = false, awakeDo = false, friendly = true;
 
             // Awake check
             if (RestUtility.Awake(subjectee))
@@ -46,18 +49,12 @@
             }
 
             // Aggro check
-            if (subjectee.InAggroMentalState == SOMod.Settings.SOAggroCalmEnabled)
+            if ((subjectee.InAggroMentalState == SOMod.Settings.SOAggroCalmEnabled) || (!subjectee.InAggroMentalState))
             {
                 stateTypeDo = true;
             }
 
-            if (!subjectee.InAggroMentalState)
-            {
-                stateTypeDo = true;
-            }
-
-            bool friendly = true;
-
+            // Friendly check
             if (!subjectee.Faction.IsPlayer)
             {
                 if (subjectee.Faction.RelationKindWith(Faction.OfPlayer) == FactionRelationKind.Hostile)
