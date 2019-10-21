@@ -15,7 +15,7 @@ namespace SnapOut
         {
             HarmonyInstance snapout = HarmonyInstance.Create("weilbyte.rimworld.snapout");       
             MethodInfo targetmethod = AccessTools.Method(typeof(Verse.Game), "FinalizeInit");
-            HarmonyMethod postfixmethod = new HarmonyMethod(typeof(SnapOut.Mod).GetMethod("FinalizeInit_Postfixu"));
+            HarmonyMethod postfixmethod = new HarmonyMethod(typeof(SnapOut.Mod).GetMethod("FinalizeInit_Postfix"));
             snapout.Patch(targetmethod, null, postfixmethod);
         }
 

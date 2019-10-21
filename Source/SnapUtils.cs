@@ -49,7 +49,7 @@
             }
 
             // Aggro check
-            if ((subjectee.InAggroMentalState == SOMod.Settings.SOAggroCalmEnabled) || (!subjectee.InAggroMentalState))
+            if ((subjectee.InAggroMentalState == SOMod.Settings.AggroCalmEnabled) || (!subjectee.InAggroMentalState))
             {
                 stateTypeDo = true;
             }
@@ -64,7 +64,7 @@
             }
 
             // Prisoner check
-            if (subjectee.guest.IsPrisoner == SOMod.Settings.SONonFaction)
+            if (subjectee.guest.IsPrisoner == SOMod.Settings.NonFaction)
             {
                 prisonerDo = true;
                 traderDo = true;
@@ -75,7 +75,7 @@
             {
                 if (friendly)
                 {
-                    if (SOMod.Settings.SOTraderCalm)
+                    if (SOMod.Settings.TraderCalm)
                     {
                         traderDo = true;
                         prisonerDo = true;
@@ -134,7 +134,7 @@
         /// <param name="message">Message</param>
         public static void DebugLog(string message)
         {
-            if (SOMod.Settings.SODebug)
+            if (SOMod.Settings.Debug)
             {
                 Log.Message("[SnapOut] " + message);
             }
@@ -150,10 +150,10 @@
         {
             float num = doer.GetStatValue(StatDefOf.SocialImpact, true);
             int opinion = subjectee.relations.OpinionOf(doer);
-            num = num * SOMod.Settings.SODipWeight + (float)opinion * SOMod.Settings.SOOpnWeight; // Formula
-            if (SOMod.Settings.SOOpnOnly)
+            num = num * SOMod.Settings.DipWeight + (float)opinion * SOMod.Settings.OpnWeight; // Formula
+            if (SOMod.Settings.OpinionOnly)
             {
-                num = (float)opinion * SOMod.Settings.SOOOpnWeight;
+                num = (float)opinion * SOMod.Settings.OOpnWeight;
             }
 
             num = Mathf.Clamp01(num);

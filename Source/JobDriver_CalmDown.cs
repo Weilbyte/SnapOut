@@ -41,7 +41,7 @@
                     SnapUtils.DebugLog("Calm chance was " + num.ToString() + " versus random of " + rand.ToString());
                     if (rand > num)
                     {
-                        if (SOMod.Settings.SOmessagesEnabled)
+                        if (SOMod.Settings.MessagesEnabled)
                         {
                             MoteMaker.ThrowText(this.pawn.DrawPos + this.pawn.Drawer.renderer.BaseHeadOffsetAt(this.pawn.Rotation), this.pawn.Map, SnapUtils.GetCalmingMessage, Color.red, 3.85f);
                         }
@@ -78,7 +78,7 @@
                         return;
                     }
 
-                    if (SOMod.Settings.SOmessagesEnabled)
+                    if (SOMod.Settings.MessagesEnabled)
                     {
                         MoteMaker.ThrowText(this.pawn.DrawPos + this.pawn.Drawer.renderer.BaseHeadOffsetAt(this.pawn.Rotation), this.pawn.Map, SnapUtils.GetCalmingMessage, Color.green, 3.85f);
                     }
@@ -99,7 +99,7 @@
                 },
                 socialMode = RandomSocialMode.Off,
                 defaultCompleteMode = ToilCompleteMode.Instant,
-                defaultDuration = SOMod.Settings.SOCalmDuration
+                defaultDuration = SOMod.Settings.CalmDuration
             };
             return toil.WithProgressBarToilDelay(TargetIndex.B);
         }
@@ -112,7 +112,7 @@
         protected override IEnumerable<Toil> MakeNewToils()
         {
             Pawn pieceofs = (Pawn)this.pawn.CurJob.targetA.Thing;
-            var cdown = CalmDown(PieceOfShit, SOMod.Settings.SOCalmDuration);
+            var cdown = CalmDown(PieceOfShit, SOMod.Settings.CalmDuration);
 
             this.FailOnDowned(PieceOfShit);
             this.FailOnDespawnedOrNull(PieceOfShit);
@@ -128,7 +128,7 @@
                 {
                     float randa = UnityEngine.Random.Range(0f, 0.85f);
                     float numba = pawn.GetStatValue(StatDefOf.SocialImpact, true);
-                    numba = numba * SOMod.Settings.SOStunWeight;
+                    numba = numba * SOMod.Settings.StunWeight;
                     SnapUtils.DebugLog("Aggressive stun chance was " + numba.ToString() + " versus random of " + randa.ToString());
                     if (randa > numba)
                     {
@@ -140,12 +140,12 @@
 
                     if (numba > randa)
                     {
-                        pieceofs.stances.stunner.StunFor(SOMod.Settings.SOCalmDuration, pawn);
+                        pieceofs.stances.stunner.StunFor(SOMod.Settings.CalmDuration, pawn);
                     }
                 }
             });
             yield return Toils_Interpersonal.GotoInteractablePosition(PieceOfShit);
-            yield return Toils_General.WaitWith(PieceOfShit, SOMod.Settings.SOCalmDuration, true, true);
+            yield return Toils_General.WaitWith(PieceOfShit, SOMod.Settings.CalmDuration, true, true);
             yield return cdown;
             yield return Toils_Interpersonal.SetLastInteractTime(PieceOfShit);
         }
