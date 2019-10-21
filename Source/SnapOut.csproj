@@ -62,6 +62,7 @@
     <Compile Include="JobDriver_ActuallyRecover.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="SnapCheck.cs" />
     <Compile Include="SnapDefOf.cs" />
     <Compile Include="SnapOut.cs" />
     <Compile Include="SnapUtils.cs" />

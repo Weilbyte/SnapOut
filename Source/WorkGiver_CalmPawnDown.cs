@@ -20,12 +20,12 @@
                 Pawn targetPawn = (Pawn)targetThing;
                 if (targetPawn.RaceProps.Humanlike && targetPawn.InMentalState)
                 {
-                    if (SnapUtils.CompatCheck(targetPawn.MentalState.def.ToString()))
+                    if (SnapCheck.CompatCheck(targetPawn.MentalState.def.ToString()))
                     {
                         bool recent = Find.TickManager.TicksGame < targetPawn.mindState.lastAssignedInteractTime + SOMod.Settings.Cooldown;
                         if (pawn.CurJobDef != SnapDefOf.CalmDownJob)
                         {
-                            if (SnapUtils.CanDo(targetPawn) && SnapUtils.IsCapable(pawn) && !recent && pawn.CanReserve(targetPawn))
+                            if (SnapCheck.CanDo(targetPawn) && SnapCheck.IsCapable(pawn) && !recent && pawn.CanReserve(targetPawn))
                             {
                                 SnapUtils.DebugLog(string.Format("{0} given calm job with {1} as target", pawn.Name.ToStringShort, targetPawn.Name.ToStringShort));
                                 return new Job(SnapDefOf.CalmDownJob, targetPawn);
