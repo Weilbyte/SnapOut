@@ -16,7 +16,7 @@
   <OOMultLabel>Opinion only multiplier</OOMultLabel>
   <StunWeight>Aggressive pawn stun chance multiplier</StunWeight>
   <CalmDuration>Duration of the calm</CalmDuration>
-  <DebugChanceSetting>Output debug and chance messages in console</DebugChanceSetting>
+  <DebugChanceSetting>Debug mode</DebugChanceSetting>
   <NoCathEnabledLabel>Disable Catharsis</NoCathEnabledLabel>
   <Cooldown>Cool down on failed attempt (ticks)</Cooldown>
   <LaunchCounterSetting>Launch Counter</LaunchCounterSetting>
