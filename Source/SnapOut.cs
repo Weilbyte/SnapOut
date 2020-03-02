@@ -5,23 +5,18 @@
     using System.Linq;
     using System.Text;
     using Verse;
-    using Harmony;
+    using HarmonyLib;
     using System.Reflection;
     using System.Net;
-    using Multiplayer.API;
 
     public class Mod : Verse.Mod
     {
         public Mod(ModContentPack content) : base(content)
         {
-            HarmonyInstance snapout = HarmonyInstance.Create("weilbyte.rimworld.snapout");       
+            Harmony snapout = new Harmony("weilbyte.rimworld.snapout");       
             MethodInfo targetmethod = AccessTools.Method(typeof(Verse.Game), "FinalizeInit");
             HarmonyMethod postfixmethod = new HarmonyMethod(typeof(SnapOut.Mod).GetMethod("FinalizeInit_Postfix"));
             snapout.Patch(targetmethod, null, postfixmethod);
-            if (MP.enabled)
-            {
-                MP.RegisterAll();
-            }
         }
 
         public static void FinalizeInit_Postfix()

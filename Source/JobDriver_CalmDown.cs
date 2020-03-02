@@ -5,7 +5,6 @@
     using UnityEngine;
     using Verse;
     using Verse.AI;
-    using Multiplayer.API;
 
     /// <summary>
     /// Job driver. This is the first job assigned when calming down a pawn.
@@ -16,7 +15,6 @@
         private Job recoverjob = new Job(SnapDefOf.SnappingOutJob);
         private Job gotosafetyjob = new Job(SnapDefOf.GoToSafetyJob);
 
-        [SyncMethod]
         protected Toil CalmDown(TargetIndex ctrg, int dur)
         {
             Pawn pieceofs = (Pawn)this.pawn.CurJob.targetA.Thing;
@@ -106,13 +104,11 @@
             return toil.WithProgressBarToilDelay(TargetIndex.B);
         }
 
-        [SyncMethod]
         public override bool TryMakePreToilReservations(bool erroronfailed = false)
         {
             return this.pawn.Reserve(this.job.GetTarget(PieceOfShit), this.job, 1, -1, null);
         }
 
-        [SyncMethod]
         protected override IEnumerable<Toil> MakeNewToils()
         {
             Pawn pieceofs = (Pawn)this.pawn.CurJob.targetA.Thing;
