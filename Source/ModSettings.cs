@@ -1,6 +1,5 @@
 ﻿namespace SnapOut
 {
-    using SettingsHelper;
     using UnityEngine;
     using Verse;
 
@@ -56,38 +55,40 @@
 
         public override string SettingsCategory() => "SettingsCategoryLabel".Translate();
 
+        private string ooBuffer, smultBuffer, oMultBuffer, stunWeightBuffer, calmDurationBuffer, cooldownBuffer;
+
         #endregion SOsettings
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.Begin(inRect);
-            listing_Standard.AddLabeledCheckbox("MessagesEnabledLabel".Translate() + " ", ref Settings.MessagesEnabled);
-            listing_Standard.AddLabeledCheckbox("AggroCalmEnabledLabel".Translate() + " ", ref Settings.AggroCalmEnabled);
-            listing_Standard.AddLabeledCheckbox("OpinionOnlyEnabledLabel".Translate() + " ", ref Settings.OpinionOnly);
-            listing_Standard.AddLabeledCheckbox("NonFactionEnabledLabel".Translate() + " ", ref Settings.NonFaction);
-            listing_Standard.AddLabeledCheckbox("TraderCalmEnabledLabel".Translate() + " ", ref Settings.TraderCalm);
-            listing_Standard.AddLabeledCheckbox("AdvancedMenu".Translate() + "  ", ref Settings.AdvancedMenu);
+            listing_Standard.CheckboxLabeled("MessagesEnabledLabel".Translate() + " ", ref Settings.MessagesEnabled);
+            listing_Standard.CheckboxLabeled("AggroCalmEnabledLabel".Translate() + " ", ref Settings.AggroCalmEnabled);
+            listing_Standard.CheckboxLabeled("OpinionOnlyEnabledLabel".Translate() + " ", ref Settings.OpinionOnly);
+            listing_Standard.CheckboxLabeled("NonFactionEnabledLabel".Translate() + " ", ref Settings.NonFaction);
+            listing_Standard.CheckboxLabeled("TraderCalmEnabledLabel".Translate() + " ", ref Settings.TraderCalm);
+            listing_Standard.CheckboxLabeled("AdvancedMenu".Translate() + "  ", ref Settings.AdvancedMenu);
             if (SOMod.Settings.AdvancedMenu)
             {
-                listing_Standard.AddLabelLine("Formula = diplomacy skill * social multiplier + opinion * opinion multiplier");
+                listing_Standard.Label("Formula = diplomacy skill * social multiplier + opinion * opinion multiplier");
                 if (SOMod.Settings.OpinionOnly)
                 {
-                    listing_Standard.AddLabeledNumericalTextField("OOMultLabel".Translate(), ref Settings.OOpnWeight, (float)0.5, 0, 1);
+                    listing_Standard.TextFieldNumericLabeled("OOMultLabel".Translate(), ref Settings.OOpnWeight, ref ooBuffer, 0, 1);
                 }
                 else
                 {
-                    listing_Standard.AddLabeledNumericalTextField("SMultLabel".Translate(), ref Settings.DipWeight, (float)0.5, 0, 1);
-                    listing_Standard.AddLabeledNumericalTextField("OMultLabel".Translate(), ref Settings.OpnWeight, (float)0.5, 0, 1);
+                    listing_Standard.TextFieldNumericLabeled("SMultLabel".Translate(), ref Settings.DipWeight, ref smultBuffer, 0, 1);
+                    listing_Standard.TextFieldNumericLabeled("OMultLabel".Translate(), ref Settings.OpnWeight, ref oMultBuffer, 0, 1);
                 }
 
-                listing_Standard.AddLabeledNumericalTextField("StunWeight".Translate(), ref Settings.StunWeight, (float)0.5, 0, 1);
+                listing_Standard.TextFieldNumericLabeled("StunWeight".Translate(), ref Settings.StunWeight, ref stunWeightBuffer, 0, 1);
 
-                listing_Standard.AddLabeledNumericalTextField("CalmDuration".Translate(), ref SOMod.Settings.CalmDuration);
-                listing_Standard.AddLabeledNumericalTextField("Cooldown".Translate(), ref SOMod.Settings.Cooldown);
-                listing_Standard.AddLabeledCheckbox("DebugChanceSetting".Translate() + " ", ref Settings.Debug);
-                listing_Standard.AddLabeledCheckbox("LaunchCounterSetting".Translate() + " ", ref Settings.LaunchCounter); 
-                listing_Standard.AddLabeledCheckbox("AlwaysSucceedSetting".Translate() + " ", ref Settings.AlwaysSucceed);
+                listing_Standard.TextFieldNumericLabeled("CalmDuration".Translate(), ref SOMod.Settings.CalmDuration, ref calmDurationBuffer);
+                listing_Standard.TextFieldNumericLabeled("Cooldown".Translate(), ref SOMod.Settings.Cooldown, ref cooldownBuffer);
+                listing_Standard.CheckboxLabeled("DebugChanceSetting".Translate() + " ", ref Settings.Debug);
+                listing_Standard.CheckboxLabeled("LaunchCounterSetting".Translate() + " ", ref Settings.LaunchCounter); 
+                listing_Standard.CheckboxLabeled("AlwaysSucceedSetting".Translate() + " ", ref Settings.AlwaysSucceed);
                 if (listing_Standard.ButtonText("Default"))
                 {
                     SnapUtils.DebugLog("Reset advanced settings to defaults");

@@ -4,7 +4,6 @@
     using RimWorld;
     using Verse;
     using Verse.AI;
-    using Multiplayer.API;
 
     /// <summary>
     /// Job driver. Makes the pawn go to their bed (if not present, a random spot nearby) where they are given a job that snaps them out.
@@ -16,7 +15,6 @@
             return true;
         }
 
-        [SyncMethod]
         protected override IEnumerable<Toil> MakeNewToils()
         {
             Pawn rpawn = this.pawn;
