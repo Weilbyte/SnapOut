@@ -27,7 +27,7 @@
         {
             if (SOMod.Settings.Debug)
             {
-                Log.Message("[SnapOut] " + message);
+                Log.Message("SnapOut :: " + message);
             }
         }
 
