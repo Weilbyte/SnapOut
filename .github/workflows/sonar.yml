@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: SonarQube Scan
-        uses: kitabisa/sonarqube-action@v0.0.1
+        uses: ItsEcholot/sonarqube-action@v0.0.2
         with:
           host: https://sonar.weilbyte.net/
           login: ${{ secrets.sonarToken }}
