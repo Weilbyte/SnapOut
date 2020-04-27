@@ -31,6 +31,16 @@
             }
         }
 
+        /// <summary>    
+        /// Creates comforting text above the pawn
+        /// </summary>
+        /// <param name="pawn">Pawn to create text above</param>
+        /// <param name="color">Color of the text</param>
+        public static void CalmText(Pawn pawn, Color color)
+        {
+            MoteMaker.ThrowText(pawn.DrawPos + pawn.Drawer.renderer.BaseHeadOffsetAt(pawn.Rotation), pawn.Map, GetCalmingMessage(), color, 3.85f);
+        } 
+
         /// <summary>
         /// Runs the chance formula
         /// </summary>
