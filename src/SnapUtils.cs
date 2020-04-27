@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using RimWorld;
+    using Verse.AI;
     using UnityEngine;
     using Verse;
 
@@ -39,7 +40,33 @@
         public static void CalmText(Pawn pawn, Color color)
         {
             MoteMaker.ThrowText(pawn.DrawPos + pawn.Drawer.renderer.BaseHeadOffsetAt(pawn.Rotation), pawn.Map, GetCalmingMessage(), color, 3.85f);
-        } 
+        }
+
+        /// <summary>
+        /// Attempt to send pawn to safety
+        /// </summary>
+        /// <param name="subjectee">Pawn to send to safety</param>
+        public static void AttemptSendSafety(Pawn subjectee)
+        {
+            Job goToSafetyJob = new Job(SnapDefOf.GoToSafetyJob);
+            if (subjectee.ownership.OwnedRoom != null)
+            {
+                int srand = Rand.RangeSeeded(0, 100, Find.TickManager.TicksAbs);
+                SnapUtils.DebugLog(subjectee.Name.ToStringShort + " has a bedroom. Chance to get sent to safety.. " + srand);
+                if (srand <= 65) // 65% chance
+                {
+                    SnapUtils.DebugLog(subjectee.Name.ToStringShort + " has been sent to safety!");
+                    goToSafetyJob.playerForced = true;
+                    goToSafetyJob.locomotionUrgency = LocomotionUrgency.Jog;
+                    subjectee.jobs.EndCurrentJob(JobCondition.Succeeded);
+                    subjectee.jobs.StartJob(goToSafetyJob, JobCondition.Succeeded);
+                }
+                else
+                {
+                    SnapUtils.DebugLog(subjectee.Name.ToStringShort + " has not been sent to safety!");
+                }
+            }
+        }
 
         /// <summary>
         /// Runs the chance formula
