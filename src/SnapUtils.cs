@@ -102,38 +102,20 @@
             {
                 case 1: // Success
                     Messages.Message(
-                        string.Format(
-                            "SuccessCalm".Translate(),
-                        new object[]
-                    {
-                                    doer.Name.ToStringShort,
-                                    subjectee.Name.ToStringShort,
-                    }),
+                        "SuccessCalm".Translate(doer.Name.ToStringShort, subjectee.Name.ToStringShort),
                         MessageTypeDefOf.TaskCompletion);
                     break;
 
                 case 2: // Failure
                     Messages.Message(
-                        string.Format(
-                        "FailCalm".Translate(),
-                        new object[]
-                                {
-                                    doer.Name.ToStringShort,
-                                    subjectee.Name.ToStringShort,
-                                }),
-                                MessageTypeDefOf.TaskCompletion);
+                        "FailCalm".Translate(doer.Name.ToStringShort, subjectee.Name.ToStringShort),
+                        MessageTypeDefOf.TaskCompletion);
                     break;
 
                 case 3: // Critical Failure
                     Messages.Message(
-                        string.Format(
-                        "AggroFailCalm".Translate(),
-                        new object[]
-                                    {
-                                    doer.Name.ToStringShort,
-                                    subjectee.Name.ToStringShort,
-                                    }),
-                                    MessageTypeDefOf.TaskCompletion);
+                        "AggroFailCalm".Translate(doer.Name.ToStringShort, subjectee.Name.ToStringShort),
+                        MessageTypeDefOf.TaskCompletion);
                     break;
             }
         }
