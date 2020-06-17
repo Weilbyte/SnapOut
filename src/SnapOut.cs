@@ -5,6 +5,7 @@
     using HarmonyLib;
     using System.Reflection;
     using System.Net;
+    using Multiplayer.API;
 
     public class Mod : Verse.Mod
     {
@@ -14,6 +15,10 @@
             MethodInfo targetmethod = AccessTools.Method(typeof(Verse.Game), "FinalizeInit");
             HarmonyMethod postfixmethod = new HarmonyMethod(typeof(SnapOut.Mod).GetMethod("FinalizeInit_Postfix"));
             snapout.Patch(targetmethod, null, postfixmethod);
+            if (MP.enabled)
+            {
+                MP.RegisterAll();
+            }
             
         }
 

@@ -6,12 +6,14 @@
     using Verse.AI;
     using UnityEngine;
     using Verse;
+    using Multiplayer.API;
 
     internal class SnapUtils
     {
         /// <summary>
         /// Gets a random calming message from the translation files. Picks random message with ID between 1-21.
         /// </summary>
+        [SyncMethod]
         public static string GetCalmingMessage()
         {
             int rand = Rand.RangeSeeded(1, 21, Find.TickManager.TicksAbs);
@@ -46,6 +48,7 @@
         /// Attempt to send pawn to safety
         /// </summary>
         /// <param name="subjectee">Pawn to send to safety</param>
+        [SyncMethod]
         public static void AttemptSendSafety(Pawn subjectee)
         {
             Job goToSafetyJob = new Job(SnapDefOf.GoToSafetyJob);
@@ -74,6 +77,7 @@
         /// <param name="doer">Pawn</param>
         /// <param name="subjectee">Target pawn</param>
         /// <returns>Chance of Success</returns>
+        [SyncMethod]
         public static float DoFormula(Pawn doer, Pawn subjectee)
         {
             float num = doer.GetStatValue(StatDefOf.SocialImpact, true);
