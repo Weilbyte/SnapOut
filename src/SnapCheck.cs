@@ -15,7 +15,7 @@ namespace SnapOut
     class SnapCheck
     {
 
-        private static readonly List<string> incompatDef = new List<string>(new string[] { "RunWild", "PanicFlee", "HuntingTrip", "SocialFighting" }); // Def names of incompatible mental states
+        private static readonly List<string> incompatDef = new List<string>(new string[] { "RunWild", "PanicFlee", "HuntingTrip", "SocialFighting", "Fighter" }); // Def names of incompatible mental states
 
 
         /// <summary>

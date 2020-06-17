@@ -1,6 +1,7 @@
 ﻿namespace SnapOut
 {
     using System.Collections.Generic;
+    using Multiplayer.API;
     using RimWorld; 
     using Verse;
     using Verse.AI;
@@ -15,6 +16,7 @@
             return true;
         }
 
+        [SyncMethod]
         protected override IEnumerable<Toil> MakeNewToils()
         {
             Pawn tpawn = this.pawn;
