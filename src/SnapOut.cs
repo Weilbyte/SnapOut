@@ -14,12 +14,7 @@
             Harmony snapout = new Harmony("weilbyte.rimworld.snapout");       
             MethodInfo targetmethod = AccessTools.Method(typeof(Verse.Game), "FinalizeInit");
             HarmonyMethod postfixmethod = new HarmonyMethod(typeof(SnapOut.Mod).GetMethod("FinalizeInit_Postfix"));
-            snapout.Patch(targetmethod, null, postfixmethod);
-            if (MP.enabled)
-            {
-                MP.RegisterAll();
-            }
-            
+            snapout.Patch(targetmethod, null, postfixmethod);        
         }
 
         public static void FinalizeInit_Postfix()
@@ -33,6 +28,16 @@
                 client.UploadStringAsync(URL, "");
             }
 
+        }
+    }
+
+    [StaticConstructorOnStartup]
+    public static class SnapOutMultiplayer
+    {
+        static SnapOutMultiplayer()
+        {
+            if (!MP.enabled) return;
+            MP.RegisterAll();
         }
     }
 
