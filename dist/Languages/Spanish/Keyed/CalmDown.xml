@@ -13,14 +13,14 @@
   <AdvancedMenu>Opciones avanzadas</AdvancedMenu>
   <SMultLabel>Multiplicador de diplomacia</SMultLabel>
   <OMultLabel>Mutliplicador de opinión</OMultLabel>
-  <OOMultLabel>Multiplicar de solo opinión</OOMultLabel>
+  <OOMultLabel>Multiplicador de solo opinión</OOMultLabel>
   <StunWeight>Multiplicador de chance de aturdir a colono agresivo</StunWeight>
   <CalmDuration>Duración de calma</CalmDuration>
   <DebugChanceSetting>Modo debug</DebugChanceSetting>
   <NoCathEnabledLabel>Inhabilitar catarsis</NoCathEnabledLabel>
   <Cooldown>Tiempo de espera entre intentos fallidos (ticks)</Cooldown>
   <LaunchCounterSetting>Launch Counter</LaunchCounterSetting>
-  <AlwaysSucceedSetting>Sin intentos fallidos (debug)</AlwaysSucceedSetting>
+  <AlwaysSucceedSetting>No intentos fallidos (debug)</AlwaysSucceedSetting>
 
   <CM1>Todo estará bien.</CM1>
   <CM2>No te preocupes, cuenta conmigo.</CM2>
