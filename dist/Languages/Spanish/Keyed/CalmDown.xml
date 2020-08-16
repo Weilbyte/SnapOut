@@ -3,7 +3,7 @@
 
   <FailCalm>{0} no logró calmar a {1}.</FailCalm>
   <SuccessCalm>{1} ha sido calmado con éxito por {0}.</SuccessCalm>
-  <AggroFailCalm>{0} está siendo atacado por no poder calmar a {1} down</AggroFailCalm>
+  <AggroFailCalm>{0} está siendo atacado por no poder calmar a {1}</AggroFailCalm>
   <SettingsCategoryLabel>Snap Out!</SettingsCategoryLabel>
   <MessagesEnabledLabel>Activar mensajes de personaje</MessagesEnabledLabel>
   <AggroCalmEnabledLabel>Permitir calmar a colonos agresivos</AggroCalmEnabledLabel>
