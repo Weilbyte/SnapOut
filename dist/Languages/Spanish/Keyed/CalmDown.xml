@@ -14,7 +14,7 @@
   <SMultLabel>Multiplicador de diplomacia</SMultLabel>
   <OMultLabel>Mutliplicador de opinión</OMultLabel>
   <OOMultLabel>Multiplicador de solo opinión</OOMultLabel>
-  <StunWeight>Multiplicador de chance de aturdir a colono agresivo</StunWeight>
+  <StunWeight>Multiplicador de chance de aturdimiento a colonos agresivos</StunWeight>
   <CalmDuration>Duración de calma</CalmDuration>
   <DebugChanceSetting>Modo debug</DebugChanceSetting>
   <NoCathEnabledLabel>Inhabilitar catarsis</NoCathEnabledLabel>
