@@ -18,7 +18,7 @@
   <CalmDuration>Duration of the calm</CalmDuration>
   <DebugChanceSetting>Debug mode</DebugChanceSetting>
   <NoCathEnabledLabel>Disable Catharsis</NoCathEnabledLabel>
-  <Cooldown>Cool down on failed attempt (ticks)</Cooldown>
+  <Cooldown>Cool down on failed attempt</Cooldown>
   <LaunchCounterSetting>Launch Counter</LaunchCounterSetting>
   <AlwaysSucceedSetting>No fail (debug)</AlwaysSucceedSetting>
 

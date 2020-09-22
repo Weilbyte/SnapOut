@@ -55,51 +55,63 @@
 
         public override string SettingsCategory() => "SettingsCategoryLabel".Translate();
 
-        private string ooBuffer, smultBuffer, oMultBuffer, stunWeightBuffer, calmDurationBuffer, cooldownBuffer;
-
         #endregion SOsettings
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.Begin(inRect);
+            listing_Standard.Gap(6);
             listing_Standard.CheckboxLabeled("MessagesEnabledLabel".Translate() + " ", ref Settings.MessagesEnabled);
+            listing_Standard.Gap(6);
             listing_Standard.CheckboxLabeled("AggroCalmEnabledLabel".Translate() + " ", ref Settings.AggroCalmEnabled);
-            listing_Standard.CheckboxLabeled("OpinionOnlyEnabledLabel".Translate() + " ", ref Settings.OpinionOnly);
             listing_Standard.CheckboxLabeled("NonFactionEnabledLabel".Translate() + " ", ref Settings.NonFaction);
             listing_Standard.CheckboxLabeled("TraderCalmEnabledLabel".Translate() + " ", ref Settings.TraderCalm);
+            listing_Standard.Gap(6);
+            listing_Standard.CheckboxLabeled("OpinionOnlyEnabledLabel".Translate() + " ", ref Settings.OpinionOnly);
             listing_Standard.CheckboxLabeled("AdvancedMenu".Translate() + "  ", ref Settings.AdvancedMenu);
+            listing_Standard.Gap(6);
             if (SOMod.Settings.AdvancedMenu)
             {
-                listing_Standard.Label("Formula = diplomacy skill * social multiplier + opinion * opinion multiplier");
                 if (SOMod.Settings.OpinionOnly)
                 {
-                    listing_Standard.TextFieldNumericLabeled("OOMultLabel".Translate(), ref Settings.OOpnWeight, ref ooBuffer, 0, 1);
+                    listing_Standard.Label($"{"OOMultLabel".Translate()}: {Mathf.Round(Settings.OOpnWeight * 100)}%");
+                    Settings.OOpnWeight = listing_Standard.Slider(Settings.OOpnWeight, 0, 1);
+                    listing_Standard.Gap(6);
                 }
                 else
                 {
-                    listing_Standard.TextFieldNumericLabeled("SMultLabel".Translate(), ref Settings.DipWeight, ref smultBuffer, 0, 1);
-                    listing_Standard.TextFieldNumericLabeled("OMultLabel".Translate(), ref Settings.OpnWeight, ref oMultBuffer, 0, 1);
+                    listing_Standard.Label($"{"SMultLabel".Translate()}: {Mathf.Round(Settings.DipWeight * 100)}%");
+                    Settings.DipWeight = listing_Standard.Slider(Settings.DipWeight, 0, 1);
+                    listing_Standard.Gap(2);
+                    listing_Standard.Label($"{"OMultLabel".Translate()}: {Mathf.Round(Settings.OpnWeight * 100)}%");
+                    Settings.OpnWeight = listing_Standard.Slider(Settings.OpnWeight, 0, 1);
+                    listing_Standard.Gap(6);
                 }
 
-                listing_Standard.TextFieldNumericLabeled("StunWeight".Translate(), ref Settings.StunWeight, ref stunWeightBuffer, 0, 1);
-
-                listing_Standard.TextFieldNumericLabeled("CalmDuration".Translate(), ref SOMod.Settings.CalmDuration, ref calmDurationBuffer);
-                listing_Standard.TextFieldNumericLabeled("Cooldown".Translate(), ref SOMod.Settings.Cooldown, ref cooldownBuffer);
+                listing_Standard.Label($"{"StunWeight".Translate()}: {Mathf.Round(Settings.StunWeight * 100)}%");
+                Settings.StunWeight = listing_Standard.Slider(Settings.StunWeight, 0, 1);
+                listing_Standard.Gap(2);
+                listing_Standard.Label($"{"CalmDuration".Translate()}: {(float)Settings.CalmDuration/2500:F1}h");
+                Settings.CalmDuration = (int)listing_Standard.Slider(Settings.CalmDuration, 500, 15000);
+                listing_Standard.Gap(2);
+                listing_Standard.Label($"{"Cooldown".Translate()}: {(float)Settings.Cooldown/2500:F1}h");
+                Settings.Cooldown = (int)listing_Standard.Slider(Settings.Cooldown, 2500, 60000);
+                listing_Standard.Gap();
                 listing_Standard.CheckboxLabeled("DebugChanceSetting".Translate() + " ", ref Settings.Debug);
                 listing_Standard.CheckboxLabeled("LaunchCounterSetting".Translate() + " ", ref Settings.LaunchCounter); 
                 listing_Standard.CheckboxLabeled("AlwaysSucceedSetting".Translate() + " ", ref Settings.AlwaysSucceed);
-                if (listing_Standard.ButtonText("Default"))
-                {
+                if (listing_Standard.ButtonText("Default", "Revert advanced settings to default")) {
                     SnapUtils.DebugLog("Reset advanced settings to defaults");
-                    SOMod.Settings.DipWeight = 0.2f;
-                    SOMod.Settings.OpnWeight = 0.0014f;
-                    SOMod.Settings.OOpnWeight = 0.006f;
-                    SOMod.Settings.StunWeight = 0.55f;
-                    SOMod.Settings.CalmDuration = 1250;
-                    SOMod.Settings.Debug = false;
-                    SOMod.Settings.LaunchCounter = true;
-                    SOMod.Settings.Cooldown = 15000;
+                    Settings.DipWeight = 0.2f;
+                    Settings.OpnWeight = 0.0014f;
+                    Settings.OOpnWeight = 0.006f;
+                    Settings.StunWeight = 0.55f;
+                    Settings.CalmDuration = 1250;
+                    
+                    Settings.Debug = false;
+                    Settings.LaunchCounter = true;
+                    Settings.Cooldown = 15000;
                 }
             }
 
