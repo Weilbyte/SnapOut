@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+    
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Upload to Steam Workshop
+        uses: weilbyte/steam-workshop-upload@v1
+        with: 
+          appid: 294100
+          itemid: 1319782555
+          path: 'dist'
+        env:
+          STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+          STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+          STEAM_TFASEED: ${{ secrets.STEAM_TFASEED }}
+      - name: Rename folder
+        run: mv dist SnapOut
+      - name: Package folder
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r out.zip SnapOut
+      - name: Upload to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./out.zip
+          asset_name: SnapOut.zip
+          asset_content_type: application/zip
