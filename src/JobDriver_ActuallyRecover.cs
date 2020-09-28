@@ -1,5 +1,6 @@
 ﻿namespace SnapOut
 {
+    using RimWorld;
     using System.Collections.Generic;
     using Verse;
     using Verse.AI;
@@ -18,6 +19,7 @@
         {
             yield return Toils_General.Wait(1);
             this.pawn.MentalState.RecoverFromState();
+            if (SOMod.Settings.DisableCath) this.pawn.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.Catharsis);
             this.pawn.jobs.ClearQueuedJobs();
             this.pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
         }

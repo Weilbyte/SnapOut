@@ -57,6 +57,7 @@
                     if (subjectee.InAggroMentalState)
                     {
                         subjectee.MentalState.RecoverFromState();
+                        if (SOMod.Settings.DisableCath) subjectee.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.Catharsis);
                         subjectee.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Wander_Sad);
                     }
                     

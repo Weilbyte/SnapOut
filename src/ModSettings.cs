@@ -14,6 +14,7 @@
         public bool Debug = false;
         public bool LaunchCounter = true;
         public bool AlwaysSucceed = false;
+        public bool DisableCath = false;
         public float DipWeight = 0.2f;
         public float OpnWeight = 0.0014f;
         public float OOpnWeight = 0.006f;
@@ -33,6 +34,7 @@
             Scribe_Values.Look<bool>(ref this.Debug, "Debug", false);
             Scribe_Values.Look<bool>(ref this.LaunchCounter, "LaunchCounter", true);
             Scribe_Values.Look<bool>(ref this.AlwaysSucceed, "AlwaysSucceed", false);
+            Scribe_Values.Look<bool>(ref this.DisableCath, "DisableCath", false);
             Scribe_Values.Look<float>(ref this.StunWeight, "StunWeight", 0.45f);
             Scribe_Values.Look<float>(ref this.DipWeight, "DipWeight", 0.2f);
             Scribe_Values.Look<float>(ref this.OpnWeight, "SOOpnWeight", 0.0014f);
@@ -63,6 +65,7 @@
             listing_Standard.Begin(inRect);
             listing_Standard.Gap(6);
             listing_Standard.CheckboxLabeled($"{"MessagesEnabledLabel".Translate()} ", ref Settings.MessagesEnabled);
+            listing_Standard.CheckboxLabeled($"{"NoCathEnabledLabel".Translate()} ", ref Settings.DisableCath);
             listing_Standard.Gap(6);
             listing_Standard.CheckboxLabeled($"{"AggroCalmEnabledLabel".Translate()} ", ref Settings.AggroCalmEnabled);
             listing_Standard.CheckboxLabeled($"{"NonFactionEnabledLabel".Translate()} ", ref Settings.NonFaction);
