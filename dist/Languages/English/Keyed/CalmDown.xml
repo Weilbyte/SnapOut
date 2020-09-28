@@ -21,6 +21,8 @@
   <Cooldown>Cool down on failed attempt</Cooldown>
   <LaunchCounterSetting>Launch Counter</LaunchCounterSetting>
   <AlwaysSucceedSetting>No fail (debug)</AlwaysSucceedSetting>
+  <DefaultButton>Revert advanced settings to default</DefaultButton>
+
 
   <CM1>It will be all fine.</CM1>
   <CM2>Don't worry, I've got your back.</CM2>
