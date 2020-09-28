@@ -62,14 +62,14 @@
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.Begin(inRect);
             listing_Standard.Gap(6);
-            listing_Standard.CheckboxLabeled("MessagesEnabledLabel".Translate() + " ", ref Settings.MessagesEnabled);
+            listing_Standard.CheckboxLabeled($"{"MessagesEnabledLabel".Translate()} ", ref Settings.MessagesEnabled);
             listing_Standard.Gap(6);
-            listing_Standard.CheckboxLabeled("AggroCalmEnabledLabel".Translate() + " ", ref Settings.AggroCalmEnabled);
-            listing_Standard.CheckboxLabeled("NonFactionEnabledLabel".Translate() + " ", ref Settings.NonFaction);
-            listing_Standard.CheckboxLabeled("TraderCalmEnabledLabel".Translate() + " ", ref Settings.TraderCalm);
+            listing_Standard.CheckboxLabeled($"{"AggroCalmEnabledLabel".Translate()} ", ref Settings.AggroCalmEnabled);
+            listing_Standard.CheckboxLabeled($"{"NonFactionEnabledLabel".Translate()} ", ref Settings.NonFaction);
+            listing_Standard.CheckboxLabeled($"{"TraderCalmEnabledLabel".Translate()} ", ref Settings.TraderCalm);
             listing_Standard.Gap(6);
-            listing_Standard.CheckboxLabeled("OpinionOnlyEnabledLabel".Translate() + " ", ref Settings.OpinionOnly);
-            listing_Standard.CheckboxLabeled("AdvancedMenu".Translate() + "  ", ref Settings.AdvancedMenu);
+            listing_Standard.CheckboxLabeled($"{"OpinionOnlyEnabledLabel".Translate()} ", ref Settings.OpinionOnly);
+            listing_Standard.CheckboxLabeled($"{"AdvancedMenu".Translate()} ", ref Settings.AdvancedMenu);
             listing_Standard.Gap(6);
             if (SOMod.Settings.AdvancedMenu)
             {
@@ -92,17 +92,16 @@
                 listing_Standard.Label($"{"StunWeight".Translate()}: {Mathf.Round(Settings.StunWeight * 100)}%");
                 Settings.StunWeight = listing_Standard.Slider(Settings.StunWeight, 0, 1);
                 listing_Standard.Gap(2);
-                listing_Standard.Label($"{"CalmDuration".Translate()}: {(float)Settings.CalmDuration/2500:F1}h");
+                listing_Standard.Label($"{"CalmDuration".Translate()}: {(float)Settings.CalmDuration / 2500:F1}h");
                 Settings.CalmDuration = (int)listing_Standard.Slider(Settings.CalmDuration, 500, 15000);
                 listing_Standard.Gap(2);
-                listing_Standard.Label($"{"Cooldown".Translate()}: {(float)Settings.Cooldown/2500:F1}h");
+                listing_Standard.Label($"{"Cooldown".Translate()}: {(float)Settings.Cooldown / 2500:F1}h");
                 Settings.Cooldown = (int)listing_Standard.Slider(Settings.Cooldown, 2500, 60000);
                 listing_Standard.Gap();
-                listing_Standard.CheckboxLabeled("DebugChanceSetting".Translate() + " ", ref Settings.Debug);
-                listing_Standard.CheckboxLabeled("LaunchCounterSetting".Translate() + " ", ref Settings.LaunchCounter); 
-                listing_Standard.CheckboxLabeled("AlwaysSucceedSetting".Translate() + " ", ref Settings.AlwaysSucceed);
-                if (listing_Standard.ButtonText("Default", "Revert advanced settings to default")) {
-                    SnapUtils.DebugLog("Reset advanced settings to defaults");
+                listing_Standard.CheckboxLabeled($"{"DebugChanceSetting".Translate()} ", ref Settings.Debug);
+                listing_Standard.CheckboxLabeled($"{"LaunchCounterSetting".Translate()} ", ref Settings.LaunchCounter); 
+                listing_Standard.CheckboxLabeled($"{"AlwaysSucceedSetting".Translate()} ", ref Settings.AlwaysSucceed);
+                if (listing_Standard.ButtonText("Default", "DefaultButton".Translate())) {
                     Settings.DipWeight = 0.2f;
                     Settings.OpnWeight = 0.0014f;
                     Settings.OOpnWeight = 0.006f;
