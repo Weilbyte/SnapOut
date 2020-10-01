@@ -22,7 +22,7 @@
             string host = "rimcounter.weilbyte.net";
             string appname = "SnapOut";
             Uri URL = new Uri("http://" + host + "/api/v1/count/" + appname);
-            if (SOMod.Settings.LaunchCounter)
+            if (false)
             {
                 var client = new WebClient();
                 client.UploadStringAsync(URL, "");
