@@ -104,7 +104,6 @@
                     Settings.NegotiationCap = 165f;
                     Settings.StunWeight = 0.55f;
                     Settings.CalmDuration = 1250;
-                    
                     Settings.Debug = false;
                     Settings.LaunchCounter = true;
                     Settings.Cooldown = 15000;

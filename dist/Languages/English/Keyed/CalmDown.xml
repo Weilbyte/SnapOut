@@ -11,8 +11,9 @@
   <NonFactionEnabledLabel>Enable calming prisoners</NonFactionEnabledLabel>
   <TraderCalmEnabledLabel>Enable calming traders</TraderCalmEnabledLabel>
   <AdvancedMenu>Advanced options</AdvancedMenu>
-  <SMultLabel>Diplomacy multiplier</SMultLabel>
+  <SMultLabel>Negotiation multiplier</SMultLabel>
   <OMultLabel>Opinion multiplier</OMultLabel>
+  <CapLabel>Negotiation cap</CapLabel>
   <OOMultLabel>Opinion only multiplier</OOMultLabel>
   <StunWeight>Aggressive pawn stun chance multiplier</StunWeight>
   <CalmDuration>Duration of the calm</CalmDuration>

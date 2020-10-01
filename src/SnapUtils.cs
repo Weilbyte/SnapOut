@@ -80,15 +80,30 @@
         [SyncMethod]
         public static float DoFormula(Pawn doer, Pawn subjectee)
         {
-            float num = doer.GetStatValue(StatDefOf.SocialImpact, true);
-            int opinion = subjectee.relations.OpinionOf(doer);
-            num = num * SOMod.Settings.DipWeight + (float)opinion * SOMod.Settings.OpnWeight; // Formula
-            if (SOMod.Settings.OpinionOnly)
-            {
-                num = (float)opinion * SOMod.Settings.OOpnWeight;
+            float baseValue = SOMod.Settings.BaseValue;
+            float negotiationCap = SOMod.Settings.NegotiationCap;
+
+            float negotiationSkill = doer.GetStatValue(StatDefOf.NegotiationAbility, true) * 100;
+            if (negotiationSkill > negotiationCap) negotiationSkill = negotiationCap;
+
+            float opinion = (float)subjectee.relations.OpinionOf(doer);
+
+            float dipWeight = SOMod.Settings.NegMult / 100;
+            float opnWeight = SOMod.Settings.OpnMult / 100;
+
+            float badOpnPenalty = 0f;
+            float opinionCopy = opinion;
+
+            while (opinionCopy < 0) {
+                badOpnPenalty -= 0.25f;
+                opinionCopy++;
             }
-            num = Mathf.Clamp01(num);
-            return num;
+
+            float chance = (baseValue + badOpnPenalty) + (negotiationSkill * dipWeight) + (opinion * opnWeight);
+
+            SnapUtils.DebugLog($"({baseValue} + {badOpnPenalty}) + ({negotiationSkill} * {dipWeight}) + ({opinion} * {opnWeight}) = {chance / 100}");
+
+            return chance / 100;
         }
 
         /// <summary>
