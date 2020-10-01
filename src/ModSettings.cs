@@ -7,7 +7,6 @@
     {
         public bool MessagesEnabled = true;
         public bool AggroCalmEnabled = false;
-        public bool OpinionOnly = false;
         public bool NonFaction = true;
         public bool TraderCalm = true;
         public bool AdvancedMenu = false;
@@ -15,10 +14,11 @@
         public bool LaunchCounter = true;
         public bool AlwaysSucceed = false;
         public bool DisableCath = false;
-        public float DipWeight = 0.2f;
-        public float OpnWeight = 0.0014f;
-        public float OOpnWeight = 0.006f;
+        public float BaseValue = -25f;
+        public float NegMult = 50f;
+        public float OpnMult = 30f;
         public float StunWeight = 0.55f;
+        public float NegotiationCap = 165f;
         public int CalmDuration = 1250;
         public int Cooldown = 15000;
 
@@ -27,7 +27,6 @@
             base.ExposeData();
             Scribe_Values.Look<bool>(ref this.MessagesEnabled, "MessagesEnabled", true);
             Scribe_Values.Look<bool>(ref this.AggroCalmEnabled, "AggroCalmEnabled", false);
-            Scribe_Values.Look<bool>(ref this.OpinionOnly, "OpinionOnly", false);
             Scribe_Values.Look<bool>(ref this.NonFaction, "NonFaction", true);
             Scribe_Values.Look<bool>(ref this.TraderCalm, "TraderCalm", true);
             Scribe_Values.Look<bool>(ref this.AdvancedMenu, "AdvancedMenu", false);
@@ -35,10 +34,11 @@
             Scribe_Values.Look<bool>(ref this.LaunchCounter, "LaunchCounter", true);
             Scribe_Values.Look<bool>(ref this.AlwaysSucceed, "AlwaysSucceed", false);
             Scribe_Values.Look<bool>(ref this.DisableCath, "DisableCath", false);
+            Scribe_Values.Look<float>(ref this.NegotiationCap, "NegotiationCap", 165f);
+            Scribe_Values.Look<float>(ref this.BaseValue, "BaseValue", -25f);
             Scribe_Values.Look<float>(ref this.StunWeight, "StunWeight", 0.45f);
-            Scribe_Values.Look<float>(ref this.DipWeight, "DipWeight", 0.2f);
-            Scribe_Values.Look<float>(ref this.OpnWeight, "SOOpnWeight", 0.0014f);
-            Scribe_Values.Look<float>(ref this.OOpnWeight, "SOOOpnWeight", 0.006f);
+            Scribe_Values.Look<float>(ref this.NegMult, "DipWeight", 50f);
+            Scribe_Values.Look<float>(ref this.OpnMult, "SOOpnWeight", 30f);
             Scribe_Values.Look<int>(ref this.CalmDuration, "SOCalmDuration", 1250);
             Scribe_Values.Look<int>(ref this.Cooldown, "CoolDown", 15000);
         }
@@ -71,26 +71,20 @@
             listing_Standard.CheckboxLabeled($"{"NonFactionEnabledLabel".Translate()} ", ref Settings.NonFaction);
             listing_Standard.CheckboxLabeled($"{"TraderCalmEnabledLabel".Translate()} ", ref Settings.TraderCalm);
             listing_Standard.Gap(6);
-            listing_Standard.CheckboxLabeled($"{"OpinionOnlyEnabledLabel".Translate()} ", ref Settings.OpinionOnly);
             listing_Standard.CheckboxLabeled($"{"AdvancedMenu".Translate()} ", ref Settings.AdvancedMenu);
             listing_Standard.Gap(6);
             if (SOMod.Settings.AdvancedMenu)
             {
-                if (SOMod.Settings.OpinionOnly)
-                {
-                    listing_Standard.Label($"{"OOMultLabel".Translate()}: {Mathf.Round(Settings.OOpnWeight * 100)}%");
-                    Settings.OOpnWeight = listing_Standard.Slider(Settings.OOpnWeight, 0, 1);
-                    listing_Standard.Gap(6);
-                }
-                else
-                {
-                    listing_Standard.Label($"{"SMultLabel".Translate()}: {Mathf.Round(Settings.DipWeight * 100)}%");
-                    Settings.DipWeight = listing_Standard.Slider(Settings.DipWeight, 0, 1);
-                    listing_Standard.Gap(2);
-                    listing_Standard.Label($"{"OMultLabel".Translate()}: {Mathf.Round(Settings.OpnWeight * 100)}%");
-                    Settings.OpnWeight = listing_Standard.Slider(Settings.OpnWeight, 0, 1);
-                    listing_Standard.Gap(6);
-                }
+
+                listing_Standard.Label($"{"SMultLabel".Translate()}: {Mathf.Round(Settings.NegMult)}%");
+                Settings.NegMult = listing_Standard.Slider(Settings.NegMult, 0, 100);
+                listing_Standard.Gap(2);
+                listing_Standard.Label($"{"OMultLabel".Translate()}: {Mathf.Round(Settings.OpnMult)}%");
+                Settings.OpnMult = listing_Standard.Slider(Settings.OpnMult, 0, 100);
+                listing_Standard.Gap(2);
+                listing_Standard.Label($"{"CapLabel".Translate()}: {Mathf.Round(Settings.NegotiationCap)}");
+                Settings.NegotiationCap = listing_Standard.Slider(Settings.NegotiationCap, 40, 190);
+                listing_Standard.Gap(6);
 
                 listing_Standard.Label($"{"StunWeight".Translate()}: {Mathf.Round(Settings.StunWeight * 100)}%");
                 Settings.StunWeight = listing_Standard.Slider(Settings.StunWeight, 0, 1);
@@ -105,9 +99,9 @@
                 listing_Standard.CheckboxLabeled($"{"LaunchCounterSetting".Translate()} ", ref Settings.LaunchCounter); 
                 listing_Standard.CheckboxLabeled($"{"AlwaysSucceedSetting".Translate()} ", ref Settings.AlwaysSucceed);
                 if (listing_Standard.ButtonText("Default", "DefaultButton".Translate())) {
-                    Settings.DipWeight = 0.2f;
-                    Settings.OpnWeight = 0.0014f;
-                    Settings.OOpnWeight = 0.006f;
+                    Settings.NegMult = 50f;
+                    Settings.OpnMult = 30f;
+                    Settings.NegotiationCap = 165f;
                     Settings.StunWeight = 0.55f;
                     Settings.CalmDuration = 1250;
                     
