@@ -37,8 +37,8 @@
             Scribe_Values.Look<float>(ref this.NegotiationCap, "NegotiationCap", 165f);
             Scribe_Values.Look<float>(ref this.BaseValue, "BaseValue", -25f);
             Scribe_Values.Look<float>(ref this.StunWeight, "StunWeight", 0.45f);
-            Scribe_Values.Look<float>(ref this.NegMult, "DipWeight", 50f);
-            Scribe_Values.Look<float>(ref this.OpnMult, "SOOpnWeight", 30f);
+            Scribe_Values.Look<float>(ref this.NegMult, "NegMult", 50f);
+            Scribe_Values.Look<float>(ref this.OpnMult, "OpnMult", 30f);
             Scribe_Values.Look<int>(ref this.CalmDuration, "SOCalmDuration", 1250);
             Scribe_Values.Look<int>(ref this.Cooldown, "CoolDown", 15000);
         }
