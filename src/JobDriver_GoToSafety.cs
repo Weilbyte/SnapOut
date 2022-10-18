@@ -24,7 +24,7 @@
             Room bedroom = tpawn.ownership.OwnedRoom;
             bedroom.Cells.TryRandomElement<IntVec3>(out IntVec3 c);
             yield return Toils_Goto.GotoCell(c, PathEndMode.ClosestTouch);
-            int wticks = UnityEngine.Random.Range(1750, 3500);
+            int wticks = Rand.RangeSeeded(1750, 3500, Find.TickManager.TicksAbs);
             Toil relax = Toils_General.Wait(wticks);
             relax.socialMode = RandomSocialMode.Off;
             yield return relax;
