@@ -3,11 +3,11 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("SnapOut")]
-[assembly: AssemblyDescription("A mod for Rimworld, that adds the ability to calm pawns down from their mental breaks.")]
+[assembly: AssemblyDescription("A mod for Rimworld.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Weilbyte")]
 [assembly: AssemblyProduct("SnapOut")]
-[assembly: AssemblyCopyright("Copyright Weilbyte © 2021")]
+[assembly: AssemblyCopyright("Copyright Weilbyte © 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.7.5")]
-[assembly: AssemblyFileVersion("0.7.5")]
+[assembly: AssemblyVersion("0.8.0")]
+[assembly: AssemblyFileVersion("0.8.0")]
