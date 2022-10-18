@@ -11,7 +11,6 @@
         public bool TraderCalm = true;
         public bool AdvancedMenu = false;
         public bool Debug = false;
-        public bool LaunchCounter = true;
         public bool AlwaysSucceed = false;
         public bool DisableCath = false;
         public float BaseValue = -25f;
@@ -31,7 +30,6 @@
             Scribe_Values.Look<bool>(ref this.TraderCalm, "TraderCalm", true);
             Scribe_Values.Look<bool>(ref this.AdvancedMenu, "AdvancedMenu", false);
             Scribe_Values.Look<bool>(ref this.Debug, "Debug", false);
-            Scribe_Values.Look<bool>(ref this.LaunchCounter, "LaunchCounter", true);
             Scribe_Values.Look<bool>(ref this.AlwaysSucceed, "AlwaysSucceed", false);
             Scribe_Values.Look<bool>(ref this.DisableCath, "DisableCath", false);
             Scribe_Values.Look<float>(ref this.NegotiationCap, "NegotiationCap", 165f);
@@ -96,7 +94,6 @@
                 Settings.Cooldown = (int)listing_Standard.Slider(Settings.Cooldown, 2500, 60000);
                 listing_Standard.Gap();
                 listing_Standard.CheckboxLabeled($"{"DebugChanceSetting".Translate()} ", ref Settings.Debug);
-                listing_Standard.CheckboxLabeled($"{"LaunchCounterSetting".Translate()} ", ref Settings.LaunchCounter); 
                 listing_Standard.CheckboxLabeled($"{"AlwaysSucceedSetting".Translate()} ", ref Settings.AlwaysSucceed);
                 if (listing_Standard.ButtonText("Default", "DefaultButton".Translate())) {
                     Settings.NegMult = 50f;
@@ -105,7 +102,6 @@
                     Settings.StunWeight = 0.55f;
                     Settings.CalmDuration = 1250;
                     Settings.Debug = false;
-                    Settings.LaunchCounter = true;
                     Settings.Cooldown = 15000;
                 }
             }
