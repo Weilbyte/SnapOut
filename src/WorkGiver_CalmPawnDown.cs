@@ -4,7 +4,7 @@
     using Verse;
     using Verse.AI;
 
-    public class WorkGiver_CalmPawnDown : WorkGiver_Warden_Chat
+    public class WorkGiver_CalmPawnDown : WorkGiver_Warden
     {
         public override bool ShouldSkip(Pawn pawn, bool forced = false)
         {
@@ -19,7 +19,7 @@
             } else {
                 Pawn targetPawn = (Pawn)targetThing;
                 if (targetPawn.RaceProps.Humanlike && targetPawn.InMentalState)
-                {
+                {    
                     if (SnapCheck.CompatCheck(targetPawn.MentalState.def.ToString()))
                     {
                         bool recent = Find.TickManager.TicksGame < targetPawn.mindState.lastAssignedInteractTime + SOMod.Settings.Cooldown;
