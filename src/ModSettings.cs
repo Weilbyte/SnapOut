@@ -90,7 +90,7 @@
                 listing_Standard.Label($"{"CalmDuration".Translate()}: {(float)Settings.CalmDuration / 2500:F1}h");
                 Settings.CalmDuration = (int)listing_Standard.Slider(Settings.CalmDuration, 500, 15000);
                 listing_Standard.Gap(2);
-                listing_Standard.Label($"{"Cooldown".Translate()}: {(float)Settings.Cooldown / 2500:F1}h");
+                listing_Standard.Label($"{"SOCooldown".Translate()}: {(float)Settings.Cooldown / 2500:F1}h");
                 Settings.Cooldown = (int)listing_Standard.Slider(Settings.Cooldown, 2500, 60000);
                 listing_Standard.Gap();
                 listing_Standard.CheckboxLabeled($"{"DebugChanceSetting".Translate()} ", ref Settings.Debug);
