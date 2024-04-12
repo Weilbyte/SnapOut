@@ -18,7 +18,7 @@
   <CalmDuration>Продолжительность спокойствия</CalmDuration>
   <DebugChanceSetting>Вывод отладочных и случайных сообщений в консоли</DebugChanceSetting>
   <NoCathEnabledLabel>Отключить катарсис</NoCathEnabledLabel>
-  <Cooldown>Перезарядка при неудачной попытке</Cooldown>
+  <SOCooldown>Перезарядка при неудачной попытке</SOCooldown>
 
   <CM1>Все будет хорошо.</CM1>
   <CM2>Не волнуйся, я тебе помогу.</CM2>
