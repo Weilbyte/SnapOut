@@ -355,3 +355,5 @@ MigrationBackup/
 # Rimworld Libraries 
 Assembly-CSharp.dll
 UnityEngine.CoreModule.dll
+
+.idea
